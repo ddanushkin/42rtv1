@@ -26,13 +26,39 @@ int		event_handling(t_app *app)
 	return (1);
 }
 
-int render_loop(t_app *app)
+void	fill_screen(t_app *app)
+{
+	int			x;
+	int			y;
+	SDL_Surface *screen;
+	t_color		c;
+
+	screen = app->sdl->surface;
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			c.r = rand() % 256;
+			c.g = rand() % 256;
+			c.b = rand() % 256;
+			set_pixel(screen, x, y, c);
+			x++;
+		}
+		y++;
+	}
+}
+
+int		render_loop(t_app *app)
 {
 	while (1)
 	{
 		clear_screen(app);
 		if (!event_handling(app))
 			break;
+
+		fill_screen(app);
 
 		SDL_UpdateWindowSurface(app->sdl->window);
 	}

@@ -53,6 +53,14 @@ typedef struct	s_sphere
 	t_color		color;
 }				t_sphere;
 
+typedef struct	s_camera
+{
+	t_vec		pos;
+	t_vec		dir;
+	t_vec		right;
+	t_vec		down;
+}				t_camera;
+
 typedef struct	s_sdl
 {
 	SDL_Window	*window;
@@ -65,19 +73,21 @@ typedef struct	s_app
 	t_sdl		*sdl;
 	const Uint8	*keys;
 	t_sphere	*obj;
+	t_camera	camera;
 }				t_app;
 
 void	set_pixel(SDL_Surface *surface, int x, int y, t_color c);
 t_color	get_pixel(SDL_Surface *surface, int x, int y);
 
-float 		vector_length(t_vec v);
-t_vec	vector_normalise(t_vec v);
-float		vector_dot_product(t_vec v1, t_vec v2);
-t_vec	vector_cross_product(t_vec v1, t_vec v2);
-t_vec	vector_add(t_vec vector1, t_vec vector2);
-t_vec	vector_new(float x, float y, float z);
-t_vec	vector_sub(t_vec vector1, t_vec vector2);
-t_vec	vector_mul_by(t_vec v, float k);
-t_vec	vector_div_by(t_vec v, float k);
+float 	vec_length(t_vec v);
+t_vec	vec_normalize(t_vec v);
+float	vec_dot(t_vec v1, t_vec v2);
+t_vec	vec_cross(t_vec v1, t_vec v2);
+t_vec	vec_add(t_vec v1, t_vec v2);
+t_vec	vec_new(float x, float y, float z);
+t_vec	vec_sub(t_vec v1, t_vec v2);
+t_vec	vec_mul_by(t_vec v, float k);
+t_vec	vec_div_by(t_vec v, float k);
+t_vec	vec_invert(t_vec v);
 
 #endif

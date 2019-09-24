@@ -45,10 +45,10 @@ t_inter_dot		hit_sphere(t_vec center, float radius, t_ray ray)
 	float	discriminant;
 	t_inter_dot		intersect;
 
-	oc = vector_sub(ray.o, center);
-	a = vector_dot_product(ray.d, ray.d);
-	b = 2.0f * vector_dot_product(oc, ray.d);
-	c = vector_dot_product(oc,oc) - radius * radius;
+	oc = vec_sub(ray.o, center);
+	a = vec_dot(ray.d, ray.d);
+	b = 2.0f * vec_dot(oc, ray.d);
+	c = vec_dot(oc, oc) - radius * radius;
 
 	discriminant = b * b - 4 * a * c;
 
@@ -82,19 +82,36 @@ void	fill_screen(t_app *app)
 
 			t_inter_dot		intersect;
 			intersect = hit_sphere(app->obj[0].pos, app->obj[0].radius, r);
-
-			if (factor > -1.0f)
-			{
-				factor = (-r.o.z - factor) / app->obj[0].radius;
-				c.r = CLAMP(255 * factor, 0, 255);
-				c.g = CLAMP(255 * factor, 0, 255);
-				c.b = CLAMP(255 * factor, 0, 255);
-				set_pixel(screen, x, y, c);
-			}
 			x++;
 		}
 		y++;
 	}
+}
+
+void	set_camera(t_app *app)
+{
+	t_camera	*camera;
+	t_vec		look_at;
+	t_vec		diff_btw;
+
+	/* TODO: Move to struct app->xyz */
+	t_vec x_axis;
+	t_vec y_axis;
+	t_vec z_axis;
+	x_axis = vec_new(1.0f, 0.0f, 0.0f);
+	y_axis = vec_new(0.0f, 1.0f, 0.0f);
+	z_axis = vec_new(0.0f, 0.0f, 1.0f);
+
+	camera = &app->camera;
+	camera->pos = vec_new(0, 0, -5.0f);
+	look_at = vec_new(0.0f, 0.0f, 0.0f);
+	diff_btw = vec_new(
+			camera->pos.x - look_at.x,
+			camera->pos.y - look_at.y,
+			camera->pos.z - look_at.z);
+	camera->dir = vec_normalize(vec_invert(diff_btw));
+	camera->right = vec_normalize(vec_cross(y_axis, camera->dir));
+	camera->down = vec_cross(camera->right, camera->dir);
 }
 
 int		render_loop(t_app *app)
@@ -105,13 +122,15 @@ int		render_loop(t_app *app)
 	app->obj[0].pos.z = 0.0f;
 	app->obj[0].radius = 420.0f;
 
+	set_camera(app);
+
 	while (1)
 	{
 		clear_screen(app);
 		if (!event_handling(app))
 			break;
 
-		fill_screen(app);
+		//fill_screen(app);
 
 		SDL_UpdateWindowSurface(app->sdl->window);
 	}

@@ -13,6 +13,8 @@
 # define HHEIGHT ((float)HEIGHT*0.5f)
 # define SDL_WINDOW_ARGS TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, 0
 # define SURFACE_LEN WIDTH * HEIGHT * 4
+# define BLACK color_new(0, 0, 0)
+# define GREY color_new(128, 128, 128)
 
 typedef struct	s_color
 {
@@ -64,7 +66,7 @@ typedef struct	s_light
 
 typedef struct	s_camera
 {
-	t_vec		pos;
+	t_vec		position;
 	t_vec		dir;
 	t_vec		right;
 	t_vec		down;
@@ -106,6 +108,13 @@ t_vec	vec_div_by(t_vec v, float k);
 t_vec	vec_invert(t_vec v);
 t_vec	vec_point_at(t_vec ori, t_vec dir, float t);
 
-void	set_color(t_color *c, int r, int g, int b);
+void	color_set(t_color *c, int r, int g, int b);
+t_color	color_new(int r, int g, int b);
 
+void	set_camera(t_camera *camera, t_vec pos, t_vec look_at);
+
+int		event_handling(t_app *app);
+
+float	sphere_intersection(t_vec center, float radius, t_ray ray);
+t_vec	sphere_normal(t_vec center, t_vec p);
 #endif

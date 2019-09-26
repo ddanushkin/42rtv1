@@ -110,6 +110,13 @@ void	trace_rays(t_app *app, int scene_id)
 			hits[COUNT_PLANES] = check_planes(app->scene[scene_id], ray);
 			//hits[COUNT_SPHERE] = check_spheres(app->scene[scene_id], ray);
 			nearest_hit = choose_hit(hits);
+
+			/* Light */
+			float diffuse_light_intensity = 0;
+			t_vec light_dir	= vec_normalize(vec_sub(app->scene[scene_id].light[0].position, ray.origin));
+			diffuse_light_intensity += app->scene[scene_id].light[0].intensity * MAX(0.0f, vec_dot(light_dir, nearest_hit.n));
+			nearest_hit.color = color_mul_by(nearest_hit.color, diffuse_light_intensity);
+
 			if (nearest_hit.d > 0.00001f)
 				set_pixel(app->sdl->surface, x, y, nearest_hit.color);
 			else

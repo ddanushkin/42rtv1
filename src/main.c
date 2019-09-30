@@ -35,19 +35,19 @@ void	init_scene(t_app *app)
 	app->scene->counts[COUNT_CYLINDER] = 1;
 
 	app->scene->planes = (t_plane *)malloc(sizeof(t_plane) * app->scene->counts[COUNT_PLANES]);
-	app->scene->planes[0] = plane_new(vec_new(0, 0, -100), vec_new(0, -1, -1), BLUE);
+	app->scene->planes[0] = plane_new(vec_new(0, 0, -10), vec_new(0, -0.5f, -10), BLUE);
 	app->scene->planes[1] = plane_new(vec_new(0, -1, 0), vec_new(0, -1, 0), GREY);
 	/* Sphere */
 	app->scene->spheres = (t_sphere *)malloc(sizeof(t_sphere) * app->scene->counts[COUNT_SPHERE]);
-	app->scene->spheres[0] = sphere_new(vec_new(0, 0, -4), 1.0f, RED);
-	app->scene->spheres[1] = sphere_new(vec_new(-1, 0, -3), 1.0f, GREEN);
+	app->scene->spheres[0] = sphere_new(vec_new(0, -1.5f, -4), 1.0f, RED);
+	app->scene->spheres[1] = sphere_new(vec_new(-1, -1, -3), 1.0f, GREEN);
 
 	/* Light */
 	app->scene->light = (t_light *)malloc(sizeof(t_light) * 1);
-	app->scene->light->position = vec_new(0.0f, 1.0f, 4.0f);
+	app->scene->light->position = vec_new(5.0f, 1.0f, 4.0f);
 	app->scene->light->direction = vec_new(0.0f, -1.0f, 0.0f);
 	app->scene->light->color = color_new(255,255,1);
-	app->scene->light->intensity = 1.5f;
+	app->scene->light->intensity = 1.0f;
 
 	/* Camera */
 	set_camera(

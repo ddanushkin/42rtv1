@@ -22,5 +22,5 @@ float	plane_intersection(t_ray ray, t_vec pos, t_vec normal)
 		t = vec_dot(p0l0, normal) / denom;
 		return (t >= 0 ? t : -1.0f);
 	}
-	return (-1.0f);
+	return (t);
 }

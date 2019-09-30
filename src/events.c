@@ -14,8 +14,8 @@ int		event_handling(t_app *app)
 	float speed = 0.1f;
 	t_vec	*position;
 
-	//position = &app->scene->obj->position;
-	//position = &app->scene->light->position;
+//	position = &app->scene->obj->position;
+//	position = &app->scene->light->position;
 	position = &app->scene->camera.position;
 
 	if (keys[SDL_SCANCODE_W])

@@ -21,10 +21,13 @@ float 	select_t(float a, float b, float d)
 	t2 = (-b - sqrtf(d)) / a2;
 	if(fabsf(t1) < 0.001f)
 	{
-		if (t2 > 0.0f) return t2;
-		else t1 = -1.0f;
+		if (t2 > 0.0f)
+			return t2;
+		else
+			t1 = INFINITY;
 	}
-	if(fabsf(t2) < 0.001f) t2 = -1.0f;
+	if(fabsf(t2) < 0.001f)
+		t2 = INFINITY;
 	return (t1 < t2) ? t1 : t2;
 }
 

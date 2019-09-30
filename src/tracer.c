@@ -53,7 +53,7 @@ t_hit	check_planes(t_scene scene, t_ray ray)
 	{
 		plane = scene.planes[i];
 		dist = plane_intersection(ray, plane.position, plane.normal);
-		if (dist <= min_dist)
+		if (dist < min_dist && dist != -1)
 		{
 			hit.color = plane.color;
 			hit.p = vec_point_at(ray.origin, ray.direction, dist);
@@ -99,6 +99,11 @@ void	set_infinity_hits(t_hit *hits)
 	hits[3].d = INFINITY;
 }
 
+float	norm(t_vec vec)
+{
+	return (sqrtf(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z));
+}
+
 void	trace_rays(t_app *app, int scene_id)
 {
 	int		x;
@@ -120,12 +125,19 @@ void	trace_rays(t_app *app, int scene_id)
 			hits[COUNT_SPHERE] = check_spheres(app->scene[scene_id], ray);
 			nearest_hit = choose_hit(hits);
 
-//			/* Light */
+			/* Light */
 			float diffuse_light_intensity = 0;
 			t_vec light_dir	= vec_normalize(vec_sub(app->scene[scene_id].light[0].position, ray.origin));
+
+			float	light_dist = norm(vec_sub(app->scene[scene_id].light->position, ray.origin));
+			t_vec shadow_orig = vec_dot(light_dir, nearest_hit.n) ? vec_sub(ray.origin, vec_mul_by(nearest_hit.n, 1e-3f)) : vec_add(nearest_hit.n, vec_mul_by(nearest_hit.n, 1e-3f));
+
 			diffuse_light_intensity += app->scene[scene_id].light[0].intensity * MAX(0.0f, vec_dot(light_dir, nearest_hit.n));
 			nearest_hit.color = color_mul_by(nearest_hit.color, diffuse_light_intensity);
 			color_clamp(&nearest_hit.color);
+
+			/* Shadows */
+
 
 			if (nearest_hit.d > 0.00001f)
 				set_pixel(app->sdl->surface, x, y, nearest_hit.color);

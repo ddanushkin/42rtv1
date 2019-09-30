@@ -15,7 +15,7 @@ int		event_handling(t_app *app)
 	t_vec	*position;
 
 //	position = &app->scene->obj->position;
-	position = &app->scene->light->position;
+//	position = &app->scene->light->position;
 	position = &app->scene->camera.position;
 
 	if (keys[SDL_SCANCODE_W])

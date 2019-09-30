@@ -24,6 +24,9 @@
 # define COUNT_PLANES 2
 # define COUNT_CYLINDER 3
 
+# define TRUE 1
+# define FALSE 0
+
 typedef struct	s_color
 {
 	int 	r;
@@ -64,6 +67,7 @@ typedef struct	s_hit
 	t_vec		n;
 	float 		d;
 	t_color		color;
+	int 		collided;
 }				t_hit;
 
 typedef struct	s_sphere

@@ -44,7 +44,7 @@ void	init_scene(t_app *app)
 
 	/* Light */
 	app->scene->light = (t_light *)malloc(sizeof(t_light) * 1);
-	app->scene->light->position = vec_new(0.0f, 0.0f, 1.0f);
+	app->scene->light->position = vec_new(0.0f, 0.0f, 5.0f);
 	app->scene->light->direction = vec_new(0.0f, -1.0f, 0.0f);
 	app->scene->light->color = color_new(255,255,1);
 	app->scene->light->intensity = 1.0f;

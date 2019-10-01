@@ -19,6 +19,8 @@
 # define GREEN color_new(0, 255, 0)
 # define BLUE color_new(0, 0, 255)
 
+# define FLOAT_INF 10000000.0f /* For Windows */
+
 # define COUNT_SPHERE 0
 # define COUNT_CONE 1
 # define COUNT_PLANES 2

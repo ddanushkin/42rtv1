@@ -163,7 +163,8 @@ t_vec		vec_point_at(t_vec ori, t_vec dir, float t);
 
 void		color_set(t_color *c, int r, int g, int b);
 t_color		color_new(int r, int g, int b);
-t_color 	color_plus(t_color c, float k);
+t_color 	color_add(t_color c, float k);
+t_color		color_sum(t_color c1, t_color c2);
 t_color		color_mul(t_color c1, t_color c2);
 t_color		color_mul_by(t_color c, float k);
 t_color		color_mix(t_color c1, t_color c2, float amount);

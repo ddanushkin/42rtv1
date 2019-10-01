@@ -16,7 +16,16 @@ void	color_clamp(t_color *c)
 	c->b = CLAMP(c->b, 0, 255);
 }
 
-t_color color_plus(t_color c, float k)
+t_color	color_sum(t_color c1, t_color c2)
+{
+	t_color	new_c;
+	new_c.r = c1.r + c2.r;
+	new_c.g = c1.g + c2.g;
+	new_c.b = c1.b + c2.b;
+	return (new_c);
+}
+
+t_color color_add(t_color c, float k)
 {
 	t_color new_c;
 

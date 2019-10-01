@@ -59,6 +59,11 @@ float	norm(t_vec vec)
 	return (sqrtf(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z));
 }
 
+t_vec	reflect(t_vec I, t_vec N)
+{
+	return vec_sub(I, vec_mul_by(N, 2.0f * vec_dot(I, N)));
+}
+
 void	trace_rays(t_app *app, int scene_id)
 {
 	int		x;
@@ -83,20 +88,31 @@ void	trace_rays(t_app *app, int scene_id)
 			check_planes(app->scene[scene_id], ray, &hit);
 			check_spheres(app->scene[scene_id], ray, &hit);
 
-			/* Light */
-			float diffuse_light_intensity = 0;
-			t_vec light_dir	= vec_normalize(vec_sub(app->scene[scene_id].light[0].position, ray.origin));
-
-			float	light_dist = norm(vec_sub(app->scene[scene_id].light->position, ray.origin));
-			t_vec shadow_orig = vec_dot(light_dir, hit.n) ? vec_sub(ray.origin, vec_mul_by(hit.n, 1e-3f)) : vec_add(hit.n, vec_mul_by(hit.n, 1e-3f));
-
-			diffuse_light_intensity += app->scene[scene_id].light[0].intensity * MAX(0.0f, vec_dot(light_dir, hit.n));
-			hit.color = color_mul_by(hit.color, diffuse_light_intensity);
-			color_clamp(&hit.color);
-
-			/* Shadows */
 			if (hit.collided)
+			{
+				/* Light */
+				float	diffuse = 0;
+				float	specular = 0;
+				t_vec	light_dir	= vec_normalize(vec_sub(app->scene[scene_id].light[0].position, ray.origin));
+
+				float	light_dist = norm(vec_sub(app->scene[scene_id].light->position, ray.origin));
+				t_vec	shadow_orig = vec_dot(light_dir, hit.n) ? vec_sub(ray.origin, vec_mul_by(hit.n, 1e-3f)) : vec_add(hit.n, vec_mul_by(hit.n, 1e-3f));
+
+				float	light_intensity = app->scene[scene_id].light[0].intensity;
+				diffuse += MAX(0.0f, vec_dot(light_dir, hit.n)) * light_intensity;
+
+				specular += powf(MAX(0.0f,vec_dot(vec_invert(reflect(vec_invert(light_dir), hit.n)), ray.direction)),10.0f) * light_intensity;
+
+				float albedo_0 = 0.6f;
+				float albedo_1 = 0.3f;
+				t_color tmp;
+				hit.color = color_mul_by(hit.color, diffuse);
+				hit.color = color_mul_by(hit.color, albedo_0);
+				tmp = color_mul_by(color_new(255, 255, 255), specular * albedo_1);
+				hit.color = color_sum(hit.color, tmp);
+				color_clamp(&hit.color);
 				set_pixel(app->sdl->surface, x, y, hit.color);
+			}
 			else
 				set_pixel(app->sdl->surface, x, y, BLACK);
 			x++;

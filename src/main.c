@@ -69,7 +69,7 @@ int		render_loop(t_app *app)
 	return (0);
 }
 
-int		main()
+int		main(int argc, char *argv[])
 {
     t_app *app;
 

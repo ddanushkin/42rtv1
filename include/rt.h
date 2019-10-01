@@ -1,6 +1,7 @@
 #ifndef RT_H
 #define RT_H
 
+# include "math.h"
 # include "libft.h"
 # include <stdio.h> /* TODO: Delete before finish project */
 # include <SDL.h>

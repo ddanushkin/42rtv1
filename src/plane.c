@@ -15,7 +15,7 @@ float	plane_intersection(t_ray ray, t_vec pos, t_vec normal)
 	float	denom;
 	float	t;
 
-	t = INFINITY;
+	t = FLOAT_INF;
 	denom = vec_dot(ray.direction, normal);
 	if (denom > 1e-6f)
 		t = vec_dot(normal, vec_sub(pos,ray.origin)) / denom;

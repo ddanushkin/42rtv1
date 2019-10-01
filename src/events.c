@@ -26,7 +26,7 @@ int		event_handling(t_app *app)
 		position->x -= speed;
 	if (keys[SDL_SCANCODE_D])
 		position->x += speed;
-	if (keys[SDL_SCANCODE_RSHIFT])
+	if (keys[SDL_SCANCODE_LSHIFT] || keys[SDL_SCANCODE_RSHIFT])
 		position->y -= speed;
 	if (keys[SDL_SCANCODE_SPACE])
 		position->y += speed;

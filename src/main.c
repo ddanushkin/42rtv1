@@ -35,8 +35,8 @@ void	init_scene(t_app *app)
 	app->scene->counts[COUNT_CYLINDER] = 1;
 
 	app->scene->planes = (t_plane *)malloc(sizeof(t_plane) * app->scene->counts[COUNT_PLANES]);
-	app->scene->planes[0] = plane_new(vec_new(0, 0, -3.5f), vec_new(1, 0, -1.0f), BLUE);
-	app->scene->planes[1] = plane_new(vec_new(0, -1, 0), vec_new(0, -1, 0), GREY);
+	app->scene->planes[0] = plane_new(vec_new(-0.5f, -0.5f, -3.5f), vec_new(1, 0, -1.0f), BLUE);
+	app->scene->planes[1] = plane_new(vec_new(-0.5f, -0.5f, 0), vec_new(0, -1, 0), GREY);
 	/* Sphere */
 	app->scene->spheres = (t_sphere *)malloc(sizeof(t_sphere) * app->scene->counts[COUNT_SPHERE]);
 	app->scene->spheres[0] = sphere_new(vec_new(0, -0.5f, -4), 1.0f, RED);

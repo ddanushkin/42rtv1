@@ -76,7 +76,7 @@ void	trace_rays(t_app *app, int scene_id)
 			ray.direction = ray_direction(app, x, y);
 
 			/* Reset hit struct */
-			hit.d = FLOAT_INF;
+			hit.d = INFINITY;
 			hit.collided = FALSE;
 
 			/* Check ray collision with objects */

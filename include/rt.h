@@ -24,6 +24,7 @@
 # define COUNT_CONE 1
 # define COUNT_PLANES 2
 # define COUNT_CYLINDER 3
+# define COUNT_LIGHT 4
 
 # define TRUE 1
 # define FALSE 0
@@ -117,6 +118,7 @@ typedef struct	s_camera
 	t_vec		dir;
 	t_vec		right;
 	t_vec		down;
+	t_vec		rotation;
 }				t_camera;
 
 typedef struct	s_sdl
@@ -132,7 +134,7 @@ typedef struct	s_scene
 	t_sphere	*cones;
 	t_plane		*planes;
 	t_sphere	*cylinders;
-	int 		counts[4];
+	int 		counts[5];
 	t_light		*light;
 	t_camera	camera;
 }				t_scene;

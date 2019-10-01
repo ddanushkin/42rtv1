@@ -29,25 +29,33 @@ void	init_scene(t_app *app)
 	/* Scene */
 	app->scene = (t_scene *)malloc(sizeof(t_scene) * 1);
 
-	app->scene->counts[COUNT_SPHERE] = 2;
+	app->scene->counts[COUNT_SPHERE] = 3;
 	app->scene->counts[COUNT_PLANES] = 2;
 	app->scene->counts[COUNT_CONE] = 1;
 	app->scene->counts[COUNT_CYLINDER] = 1;
+	app->scene->counts[COUNT_LIGHT] = 4;
 
+	/* Planes */
 	app->scene->planes = (t_plane *)malloc(sizeof(t_plane) * app->scene->counts[COUNT_PLANES]);
-	app->scene->planes[0] = plane_new(vec_new(0.0f, 0.0f, -100.0f), vec_new(0, 0, -1), BLUE);
-	app->scene->planes[1] = plane_new(vec_new(0.0f, -50.0f, 0.0f), vec_new(0, -1, 0), GREY);
+	app->scene->planes[0] = plane_new(vec_new(0.0f, 0.0f, -10.0f), vec_new(0.0f, 0.0f, -1.0f), BLUE);
+	app->scene->planes[1] = plane_new(vec_new(0.0f, -1.0f, 0.0f), vec_new(0.0f, -1.0f, 0.0f), GREY);
+
 	/* Sphere */
 	app->scene->spheres = (t_sphere *)malloc(sizeof(t_sphere) * app->scene->counts[COUNT_SPHERE]);
-	app->scene->spheres[0] = sphere_new(vec_new(0, -0.5f, -4), 1.0f, RED);
-	app->scene->spheres[1] = sphere_new(vec_new(-1, 0, -3), 1.0f, GREEN);
+	app->scene->spheres[0] = sphere_new(vec_new(-1.0f, 0, -3.2f), 0.5f, RED);
+	app->scene->spheres[1] = sphere_new(vec_new(1.0f, 0.0f, -4.0f), 1.0f, GREEN);
+	app->scene->spheres[2] = sphere_new(vec_new(0.0f, -0.5f, -3.0f), 0.3f, BLUE);
 
 	/* Light */
-	app->scene->light = (t_light *)malloc(sizeof(t_light) * 1);
-	app->scene->light->position = vec_new(0.0f, 0.0f, 5.0f);
-	app->scene->light->direction = vec_new(0.0f, -1.0f, 0.0f);
-	app->scene->light->color = color_new(255,255,1);
-	app->scene->light->intensity = 1.0f;
+	app->scene->light = (t_light *)malloc(sizeof(t_light) * app->scene->counts[COUNT_LIGHT]);
+	app->scene->light[0].position = vec_new(10.0f, 1.0f, -3.0f);
+	app->scene->light[0].intensity = 0.5f;
+	app->scene->light[1].position = vec_new(-10.0f, 1.0f, -3.0f);
+	app->scene->light[1].intensity = 0.5f;
+	app->scene->light[2].position = vec_new(0.0f, 10.0f, -3.0f);
+	app->scene->light[2].intensity = 1.0f;
+	app->scene->light[3].position = vec_new(0.0f, 0.0f, 5.0f);
+	app->scene->light[3].intensity = 1.0f;
 
 	/* Camera */
 	set_camera(

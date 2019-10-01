@@ -7,7 +7,6 @@ t_vec	vec_new(float x, float y, float z)
 	new_v.x = x;
 	new_v.y = y;
 	new_v.z = z;
-	new_v.w = 1;
 	return (new_v);
 }
 

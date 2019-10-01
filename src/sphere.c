@@ -1,12 +1,12 @@
 #include "rt.h"
 
-t_sphere	sphere_new(t_vec pos, float radius, t_color color)
+t_sphere	sphere_new(t_vec pos, float radius, t_material mat)
 {
 	t_sphere	sphere;
 
 	sphere.position = pos;
 	sphere.radius = radius;
-	sphere.color = color;
+	sphere.mat = mat;
 	return (sphere);
 }
 

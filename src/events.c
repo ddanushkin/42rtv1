@@ -13,11 +13,11 @@ int		event_handling(t_app *app)
 
 	float speed = 0.1f;
 	t_vec	*position;
-
+	t_vec	*rotation;
 //	position = &app->scene->obj->position;
 //	position = &app->scene->light->position;
 	position = &app->scene->camera.position;
-
+	rotation = &app->rot;
 	if (keys[SDL_SCANCODE_W])
 		position->z -= speed;
 	if (keys[SDL_SCANCODE_S])
@@ -30,5 +30,14 @@ int		event_handling(t_app *app)
 		position->y -= speed;
 	if (keys[SDL_SCANCODE_SPACE])
 		position->y += speed;
+
+	if (keys[SDL_SCANCODE_LEFT])
+		rotation->y -= speed;
+	if (keys[SDL_SCANCODE_RIGHT])
+		rotation->y += speed;
+	if (keys[SDL_SCANCODE_UP])
+		rotation->x += speed;
+	if (keys[SDL_SCANCODE_DOWN])
+		rotation->x -= speed;
 	return (1);
 }

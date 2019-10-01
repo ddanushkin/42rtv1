@@ -1,12 +1,12 @@
 #include "rt.h"
 
-t_plane plane_new(t_vec pos, t_vec normal, t_color color)
+t_plane plane_new(t_vec pos, t_vec normal, t_material mat)
 {
 	t_plane	plane;
 
 	plane.position = pos;
 	plane.normal = normal;
-	plane.color = color;
+	plane.mat = mat;
 	return (plane);
 }
 

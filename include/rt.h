@@ -7,18 +7,21 @@
 # include <SDL.h>
 
 # define TITLE "RTV1"
-# define WIDTH 500
-# define HEIGHT 500
+# define WIDTH 200
+# define HEIGHT 200
 # define ASP_RATIO (float)WIDTH / (float)HEIGHT
 # define HWIDTH ((float)WIDTH*0.5f)
 # define HHEIGHT ((float)HEIGHT*0.5f)
 # define SDL_WINDOW_ARGS TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, 0
 # define SURFACE_LEN WIDTH * HEIGHT * 4
 # define BLACK color_new(0, 0, 0)
+# define WHITE color_new(255, 255, 255)
 # define GREY color_new(128, 128, 128)
 # define RED color_new(255, 0, 0)
 # define GREEN color_new(0, 255, 0)
 # define BLUE color_new(0, 0, 255)
+# define PINK color_new(255, 182, 193)
+# define BROWN color_new(139, 69, 19)
 
 # define COUNT_SPHERE 0
 # define COUNT_CONE 1
@@ -42,7 +45,6 @@ typedef struct	s_vec
 	float		x;
 	float		y;
 	float		z;
-	float		w;
 }				t_vec;
 
 typedef struct	s_ray
@@ -52,23 +54,26 @@ typedef struct	s_ray
 	t_vec		point_at;
 }				t_ray;
 
-typedef struct s_inter_dot
-{
-	float		t1;
-	float		t2;
-}				t_inter_dot;
-
 typedef struct	s_mat4x4
 {
 	float		m[4][4];
 }				t_mat4x4;
+
+typedef struct	s_material
+{
+	t_color		c;
+	float		a0;
+	float		a1;
+}				t_material;
+
+
 
 typedef struct	s_hit
 {
 	t_vec		p;
 	t_vec		n;
 	float 		d;
-	t_color		color;
+	t_material	m;
 	int 		collided;
 }				t_hit;
 
@@ -76,14 +81,14 @@ typedef struct	s_sphere
 {
 	t_vec		position;
 	float		radius;
-	t_color		color;
+	t_material	mat;
 }				t_sphere;
 
 typedef struct	s_plane
 {
 	t_vec		position;
 	t_vec		normal;
-	t_color		color;
+	t_material	mat;
 }				t_plane;
 
 typedef struct	s_cone
@@ -92,7 +97,7 @@ typedef struct	s_cone
 	float 		radius;
 	float 		height;
 	float 		angle;
-	t_color		color;
+	t_material	mat;
 }				t_cone;
 
 typedef struct	s_cylinder
@@ -101,7 +106,7 @@ typedef struct	s_cylinder
 	float 		radius;
 	float 		height;
 	float 		angle;
-	t_color		color;
+	t_material	mat;
 }				t_cylinder;
 
 typedef struct	s_light
@@ -109,7 +114,7 @@ typedef struct	s_light
 	t_vec		position;
 	t_vec		direction;
 	float		intensity;
-	t_color		color;
+	t_material	mat;
 }				t_light;
 
 typedef struct	s_camera
@@ -146,6 +151,7 @@ typedef struct	s_app
 	t_scene		*scene;
 	float 		fov;
 	float 		asp_rat;
+	t_vec		rot;
 }				t_app;
 
 void		set_pixel(SDL_Surface *surface, int x, int y, t_color c);
@@ -182,8 +188,12 @@ void		trace_rays(t_app *app, int scene_id);
 
 float		sphere_intersection(t_vec center, float radius, t_ray ray);
 t_vec		sphere_normal(t_vec center, t_vec p);
-t_sphere	sphere_new(t_vec pos, float radius, t_color color);
+t_sphere	sphere_new(t_vec pos, float radius, t_material mat);
 
 float		plane_intersection(t_ray ray, t_vec pos, t_vec normal);
-t_plane		plane_new(t_vec pos, t_vec normal, t_color color);
+t_plane		plane_new(t_vec pos, t_vec normal, t_material mat);
+
+t_light		light_new(t_vec position, float intensity);
+
+t_material	material_new(float albedo_0, float albedo_1, t_color color);
 #endif

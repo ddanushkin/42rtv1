@@ -18,7 +18,7 @@ void	check_spheres(t_scene scene, t_ray ray, t_hit *hit)
 		dist = sphere_intersection(sphere.position, sphere.radius, ray);
 		if (dist < hit->d)
 		{
-			hit->color = sphere.color;
+			hit->m = sphere.mat;
 			hit->d = dist;
 			hit->p = vec_point_at(ray.origin, ray.direction, dist);
 			hit->n = sphere_normal(sphere.position, hit->p);
@@ -41,10 +41,10 @@ void	check_planes(t_scene scene, t_ray ray, t_hit *hit)
 		dist = plane_intersection(ray, plane.position, plane.normal);
 		if (dist < hit->d)
 		{
-			hit->color = plane.color;
+			hit->m = plane.mat;
 			hit->d = dist;
 			hit->p = vec_point_at(ray.origin, ray.direction, dist);
-			hit->n = plane.normal;
+			hit->n = vec_invert(plane.normal);
 			hit->collided = TRUE;
 		}
 		i++;
@@ -58,7 +58,7 @@ void	process_lights(t_scene scene, t_ray ray, t_hit *hit)
 	float		diffuse;
 	float		specular;
 
-	i = 0;
+	i = 0; /* TODO: Set to 0 */
 	diffuse = 0;
 	specular = 0;
 	while (i < scene.counts[COUNT_LIGHT])
@@ -67,23 +67,39 @@ void	process_lights(t_scene scene, t_ray ray, t_hit *hit)
 
 		light = scene.light[i];
 		light_dir = vec_normalize(vec_sub(light.position, hit->p));
-		diffuse += MAX(0.0f, vec_dot(light_dir, hit->n)) * light.intensity;
-		specular += powf(MAX(0.0f,vec_dot(vec_invert(reflect(vec_invert(light_dir), hit->n)), ray.direction)),10.0f) * light.intensity;
+
+		t_ray	shadow_ray;
+		t_hit	shadow_hit;
+
+		shadow_ray.origin = vec_add(hit->p, vec_mul_by(hit->n, 0.1f));
+		shadow_ray.direction = light_dir;
+
+		/* Reset hit struct */
+		shadow_hit.d = INFINITY;
+		shadow_hit.collided = FALSE;
+
+		/* Check light_ray collision with objects */
+		check_spheres(scene, shadow_ray, &shadow_hit);
+
+		if (shadow_hit.collided)
+		{
+			diffuse += MAX(0.0f, vec_dot(light_dir, hit->n)) * 0.0f;
+			specular += powf(MAX(0.0f,vec_dot(vec_invert(reflect(vec_invert(light_dir), hit->n)), ray.direction)),10.0f) * 0.0f;
+		}
+		else
+		{
+			diffuse += MAX(0.0f, vec_dot(light_dir, hit->n)) * light.intensity;
+			specular += powf(MAX(0.0f,vec_dot(vec_invert(reflect(vec_invert(light_dir), hit->n)), ray.direction)),10.0f) * light.intensity;
+		}
 		i++;
 	}
-	float	albedo_0;
-	float	albedo_1;
 	t_color	tmp;
 
-	/* TODO: Set Albedo per object */
-	albedo_0 = 0.8f;
-	albedo_1 = 0.5f;
-
-	hit->color = color_mul_by(hit->color, diffuse);
-	hit->color = color_mul_by(hit->color, albedo_0);
-	tmp = color_mul_by(color_new(255, 255, 255), specular * albedo_1);
-	hit->color = color_sum(hit->color, tmp);
-	color_clamp(&hit->color);
+	hit->m.c = color_mul_by(hit->m.c, diffuse);
+	hit->m.c = color_mul_by(hit->m.c, hit->m.a0);
+	tmp = color_mul_by(color_new(255, 255, 255), specular * hit->m.a1);
+	hit->m.c = color_sum(hit->m.c, tmp);
+	color_clamp(&hit->m.c);
 }
 
 void	trace_rays(t_app *app, int scene_id)
@@ -113,7 +129,7 @@ void	trace_rays(t_app *app, int scene_id)
 			if (hit.collided)
 			{
 				process_lights(app->scene[scene_id], ray, &hit);
-				set_pixel(app->sdl->surface, x, y, hit.color);
+				set_pixel(app->sdl->surface, x, y, hit.m.c);
 			}
 			else
 				set_pixel(app->sdl->surface, x, y, BLACK);

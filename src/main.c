@@ -20,8 +20,8 @@ void	safe_quit(t_app *app)
 void	init_app(t_app *app)
 {
 	app->keys = SDL_GetKeyboardState(NULL);
-	app->fov = 90.0f;
-	app->asp_rat = (float)WIDTH / (float)HEIGHT;
+	app->fov = 90.0;
+	app->asp_rat = (double)WIDTH / (double)HEIGHT;
 }
 
 void	init_scene(t_app *app)
@@ -34,7 +34,7 @@ void	init_scene(t_app *app)
 	scene = &app->scene[0];
 
 	counts = &scene->counts[0];
-	counts[COUNT_SPHERE] = 6;
+	counts[COUNT_SPHERE] = 3;
 	counts[COUNT_PLANES] = 2;
 	counts[COUNT_CONE] = 1;
 	counts[COUNT_CYLINDER] = 1;
@@ -43,49 +43,40 @@ void	init_scene(t_app *app)
 	/* Planes */
 	scene->planes = (t_plane *)malloc(sizeof(t_plane) * counts[COUNT_PLANES]);
 	scene->planes[0] = plane_new(
-			vec_new(0.0f, 0.0f, -10.0f),
-			vec_new(0.0f, 0.0f, -1.0f),
-			material_new(0.1f, 0.1f, BLUE));
+			vec_new(0.0, 0.0, -4.0),
+			vec_new(0.0, 0.0, -1.0),
+			material_new(0.1, 0.1, 10, BLUE));
 	scene->planes[1] = plane_new(
-			vec_new(0.0f, -1.0f, 0.0f),
-			vec_new(0.0f, -1.0f, 0.0f),
-			material_new(0.1f, 0.1f, GREY));
+			vec_new(0.0, -1.0, 0.0),
+			vec_new(0.0, -1.0, 0.0),
+			material_new(0.1, 0.1, 10, GREY));
 
 	/* Sphere */
 	scene->spheres = (t_sphere *)malloc(sizeof(t_sphere) * counts[COUNT_SPHERE]);
 	scene->spheres[0] = sphere_new(
-			vec_new(-0.0f, -0.2f, -3.2f), 0.4f,
-			material_new(0.8f, 0.1f, RED));
+			vec_new(-1.2, 0.0, -3.0), 0.5,
+			material_new(0.8, 1.8, 150, RED));
 	scene->spheres[1] = sphere_new(
-			vec_new(0, 0.0f, -4.0f), 1.0f,
-			material_new(0.8f, 0.8f, BROWN));
+			vec_new(1.2, 0.0, -3.0), 0.5,
+			material_new(0.8, 0.2, 150, BROWN));
 	scene->spheres[2] = sphere_new(
-			vec_new(0.3f, 0.2f, -3.2f), 0.3f,
-			material_new(0.5f, 0.5f, WHITE));
-	scene->spheres[3] = sphere_new(
-			vec_new(-0.3f, 0.2f, -3.2f), 0.3f,
-			material_new(0.5f, 0.5f, WHITE));
-	scene->spheres[4] = sphere_new(
-			vec_new(0.3f, 0.2f, -2.9f), 0.1f,
-			material_new(0.1f, 0.1f, BLACK));
-	scene->spheres[5] = sphere_new(
-			vec_new(-0.3f, 0.2f, -2.9f), 0.1f,
-			material_new(0.1f, 0.1f, BLACK));
+			vec_new(0.0, 0.0, -3.0), 0.5,
+			material_new(0.8, 0.2, 150, WHITE));
 
 	/* Light */
 	scene->light = (t_light *)malloc(sizeof(t_light) * counts[COUNT_LIGHT]);
-	scene->light[0] = light_new(vec_new(10.0f, 1.0f, -3.0f), 0.5f);
-	scene->light[1] = light_new(vec_new(-10.0f, 1.0f, -3.0f), 0.5f);
-	scene->light[2] = light_new(vec_new(0.0f, 10.0f, -3.0f), 1.0f);
-	scene->light[3] = light_new(vec_new(0.0f, 0.0f, 5.0f), 1.0f);
+	scene->light[0] = light_new(vec_new(10.0, 1.0, -3.0), 0.5);
+	scene->light[1] = light_new(vec_new(-10.0, 1.0, -3.0), 0.5);
+	scene->light[2] = light_new(vec_new(0.0, 10.0, -3.0), 1.0);
+	scene->light[3] = light_new(vec_new(0.0, 0.0, 5.0), 1.0);
 
 	/* Camera */
 	set_camera(
 			&scene->camera,
-			vec_new(0.0f, 0.0f, 0.0f),
-			vec_new(0.0f, 0.0f, 0.0f));
+			vec_new(0.0, 0.0, 0.0),
+			vec_new(0.0, 0.0, 0.0));
 
-	app->rot = vec_new(0.0f, 0.0f, 0.0f);
+	app->rot = vec_new(0.0, 0.0, 0.0);
 }
 
 int		render_loop(t_app *app)

@@ -1,6 +1,6 @@
 #include "rt.h"
 
-t_vec	vec_new(float x, float y, float z)
+t_vec	vec_new(double x, double y, double z)
 {
 	t_vec	new_v;
 
@@ -10,7 +10,7 @@ t_vec	vec_new(float x, float y, float z)
 	return (new_v);
 }
 
-t_vec	vec_point_at(t_vec ori, t_vec dir, float t)
+t_vec	vec_point_at(t_vec ori, t_vec dir, double t)
 {
 	return (vec_add(ori, vec_mul_by(dir, t)));
 }

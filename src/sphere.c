@@ -1,6 +1,6 @@
 #include "rt.h"
 
-t_sphere	sphere_new(t_vec pos, float radius, t_material mat)
+t_sphere	sphere_new(t_vec pos, double radius, t_material mat)
 {
 	t_sphere	sphere;
 
@@ -10,26 +10,26 @@ t_sphere	sphere_new(t_vec pos, float radius, t_material mat)
 	return (sphere);
 }
 
-float 	select_t(float a, float c)
+double 	select_t(double a, double c)
 {
-	float	t1;
-	float 	t2;
+	double	t1;
+	double 	t2;
 
 	t1 = a - c;
 	t2 = a + c;
-	if(t1 < 0.0f)
+	if(t1 < 0.0)
 		t1 = t2;
-	if(t1 < 0.0f)
+	if(t1 < 0.0)
 		return INFINITY;
 	return (t1);
 }
 
-float	sphere_intersection(t_vec center, float radius, t_ray ray)
+double	sphere_intersection(t_vec center, double radius, t_ray ray)
 {
 	t_vec	co;
-	float	a;
-	float	b;
-	float	c;
+	double	a;
+	double	b;
+	double	c;
 
 	co = vec_sub(center, ray.origin);
 	a = vec_dot(co, ray.direction);

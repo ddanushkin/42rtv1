@@ -11,7 +11,7 @@ int		event_handling(t_app *app)
 	if (keys[SDL_SCANCODE_ESCAPE])
 		return(0);
 
-	float speed = 0.1f;
+	double speed = 0.1;
 	t_vec	*position;
 	t_vec	*rotation;
 //	position = &app->scene->obj->position;

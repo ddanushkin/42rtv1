@@ -2,13 +2,13 @@
 
 t_vec	reflect(t_vec I, t_vec N)
 {
-	return vec_sub(I, vec_mul_by(N, 2.0f * vec_dot(I, N)));
+	return vec_sub(I, vec_mul_by(N, 2.0 * vec_dot(I, N)));
 }
 
 void	check_spheres(t_scene scene, t_ray ray, t_hit *hit)
 {
 	int			i;
-	float		dist;
+	double		dist;
 	t_sphere	sphere;
 
 	i = 0;
@@ -31,7 +31,7 @@ void	check_spheres(t_scene scene, t_ray ray, t_hit *hit)
 void	check_planes(t_scene scene, t_ray ray, t_hit *hit)
 {
 	int			i;
-	float		dist;
+	double		dist;
 	t_plane		plane;
 
 	i = 0;
@@ -55,10 +55,10 @@ void	process_lights(t_scene scene, t_ray ray, t_hit *hit)
 {
 	int			i;
 	t_light		light;
-	float		diffuse;
-	float		specular;
+	double		diffuse;
+	double		specular;
 
-	i = 0; /* TODO: Set to 0 */
+	i = 0;
 	diffuse = 0;
 	specular = 0;
 	while (i < scene.counts[COUNT_LIGHT])
@@ -71,7 +71,7 @@ void	process_lights(t_scene scene, t_ray ray, t_hit *hit)
 		t_ray	shadow_ray;
 		t_hit	shadow_hit;
 
-		shadow_ray.origin = vec_add(hit->p, vec_mul_by(hit->n, 0.1f));
+		shadow_ray.origin = vec_add(hit->p, vec_mul_by(hit->n, 0.1));
 		shadow_ray.direction = light_dir;
 
 		/* Reset hit struct */
@@ -83,13 +83,13 @@ void	process_lights(t_scene scene, t_ray ray, t_hit *hit)
 
 		if (shadow_hit.collided)
 		{
-			diffuse += MAX(0.0f, vec_dot(light_dir, hit->n)) * 0.0f;
-			specular += powf(MAX(0.0f,vec_dot(vec_invert(reflect(vec_invert(light_dir), hit->n)), ray.direction)),10.0f) * 0.0f;
+			diffuse += MAX(0.0, vec_dot(light_dir, hit->n)) * 0.0;
+			specular += pow(MAX(0.0,vec_dot(vec_invert(reflect(vec_invert(light_dir), hit->n)), ray.direction)), hit->m.exp) * 0.0f;
 		}
 		else
 		{
-			diffuse += MAX(0.0f, vec_dot(light_dir, hit->n)) * light.intensity;
-			specular += powf(MAX(0.0f,vec_dot(vec_invert(reflect(vec_invert(light_dir), hit->n)), ray.direction)),10.0f) * light.intensity;
+			diffuse += MAX(0.0, vec_dot(light_dir, hit->n)) * light.intensity;
+			specular += pow(MAX(0.0,vec_dot(vec_invert(reflect(vec_invert(light_dir), hit->n)), ray.direction)), hit->m.exp) * light.intensity;
 		}
 		i++;
 	}

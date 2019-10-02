@@ -10,14 +10,14 @@ t_plane plane_new(t_vec pos, t_vec normal, t_material mat)
 	return (plane);
 }
 
-float	plane_intersection(t_ray ray, t_vec pos, t_vec normal)
+double	plane_intersection(t_ray ray, t_vec pos, t_vec normal)
 {
-	float	denom;
-	float	t;
+	double	denom;
+	double	t;
 
 	t = INFINITY;
 	denom = vec_dot(ray.direction, normal);
-	if (denom > 1e-6f)
+	if (denom > 0.0000001)
 		t = vec_dot(normal, vec_sub(pos,ray.origin)) / denom;
 	return (t);
 }

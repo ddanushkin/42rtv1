@@ -25,7 +25,7 @@ t_color	color_sum(t_color c1, t_color c2)
 	return (new_c);
 }
 
-t_color color_add(t_color c, float k)
+t_color color_add(t_color c, double k)
 {
 	t_color new_c;
 
@@ -44,7 +44,7 @@ t_color	color_mul(t_color c1, t_color c2)
 	return (new_c);
 }
 
-t_color	color_mul_by(t_color c, float k)
+t_color	color_mul_by(t_color c, double k)
 {
 	t_color new_c;
 
@@ -54,13 +54,13 @@ t_color	color_mul_by(t_color c, float k)
 	return (new_c);
 }
 
-int		color_channel_mix(int channel_a, int channel_b, float amount)
+int		color_channel_mix(int channel_a, int channel_b, double amount)
 {
-	return ((int)(((float)channel_a * amount) +
-			((float)channel_b * (1.0f - amount))));
+	return ((int)(((double)channel_a * amount) +
+			((double)channel_b * (1.0 - amount))));
 }
 
-t_color color_mix(t_color c1, t_color c2, float amount)
+t_color color_mix(t_color c1, t_color c2, double amount)
 {
 	t_color new_c;
 

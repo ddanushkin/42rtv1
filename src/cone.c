@@ -8,10 +8,8 @@ t_cone	cone_new(t_vec pos, double radius, double height, t_material material)
 	cone_new.radius = radius;
 	cone_new.height = height;
 	cone_new.mat = material;
-
 	return (cone_new);
 }
-
 
 static double	select_t(double  a, double b, double d)
 {
@@ -48,11 +46,7 @@ double	cone_intersection(t_cone cone, t_ray ray)
 		return INFINITY;
 
 	return (select_t(a, b, delta));
-//	double	t1 = (-b - sqrt(delta)) / (2 * a);
-//	double	t2 = (-b + sqrt(delta))/(2 * a);
-
 }
-
 
 t_vec	cone_normal(t_vec p, t_cone	cone)
 {
@@ -69,7 +63,7 @@ void	check_cone(t_scene scene, t_ray ray, t_hit *hit)
 	t_cone		cone;
 
 	i = 0;
-	while (i < scene.counts[COUNT_SPHERE])
+	while (i < scene.counts[COUNT_CONE])
 	{
 		cone = scene.cones[i];
 		dist = cone_intersection(cone, ray);
@@ -83,8 +77,4 @@ void	check_cone(t_scene scene, t_ray ray, t_hit *hit)
 		}
 		i++;
 	}
-//	float r = pos.y + t*dir.y;
-//
-//	if ((r > center.y) and (r < center.y + height)) return t;
-//	else return -1;
 }

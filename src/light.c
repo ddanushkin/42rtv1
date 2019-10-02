@@ -25,8 +25,9 @@ void	calculate_light(t_scene scene, t_light light, t_hit *hit, t_ray ray)
 	shadow_ray.direction = light_dir;
 	shadow_hit.d = INFINITY;
 	shadow_hit.collided = FALSE;
-	//check_spheres(scene, shadow_ray, &shadow_hit);
+	check_spheres(scene, shadow_ray, &shadow_hit);
 	check_cylinder(scene, shadow_ray, &shadow_hit);
+	check_cone(scene, shadow_ray, &shadow_hit);
 	if (!shadow_hit.collided)
 	{
 		hit->diffuse += MAX(0.0, vec_dot(light_dir, hit->n))

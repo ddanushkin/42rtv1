@@ -1,8 +1,38 @@
 #include "rt.h"
 
+void 	event_move(const uint8_t *keys, t_vec *pos, double speed)
+{
+	if (keys[SDL_SCANCODE_W])
+		pos->z -= speed;
+	if (keys[SDL_SCANCODE_S])
+		pos->z += speed;
+	if (keys[SDL_SCANCODE_A])
+		pos->x -= speed;
+	if (keys[SDL_SCANCODE_D])
+		pos->x += speed;
+	if (keys[SDL_SCANCODE_LSHIFT] || keys[SDL_SCANCODE_RSHIFT])
+		pos->y -= speed;
+	if (keys[SDL_SCANCODE_SPACE])
+		pos->y += speed;
+}
+
+void 	event_rotate(const uint8_t *keys, t_vec *rot, double speed)
+{
+	if (keys[SDL_SCANCODE_LEFT])
+		rot->y -= speed;
+	if (keys[SDL_SCANCODE_RIGHT])
+		rot->y += speed;
+	if (keys[SDL_SCANCODE_UP])
+		rot->x += speed;
+	if (keys[SDL_SCANCODE_DOWN])
+		rot->x -= speed;
+}
+
 int		event_handling(t_app *app)
 {
-	const uint8_t *keys;
+	const uint8_t	*keys;
+	t_vec			*position;
+	t_vec			*rotation;
 
 	keys = app->keys;
 	SDL_WaitEvent(&app->sdl->event);
@@ -10,34 +40,9 @@ int		event_handling(t_app *app)
 		return(0);
 	if (keys[SDL_SCANCODE_ESCAPE])
 		return(0);
-
-	double speed = 0.1;
-	t_vec	*position;
-	t_vec	*rotation;
-//	position = &app->scene->obj->position;
-//	position = &app->scene->light->position;
 	position = &app->scene->camera.position;
 	rotation = &app->rot;
-	if (keys[SDL_SCANCODE_W])
-		position->z -= speed;
-	if (keys[SDL_SCANCODE_S])
-		position->z += speed;
-	if (keys[SDL_SCANCODE_A] && (position->x > 0 || position->x < WIDTH))
-		position->x -= speed;
-	if (keys[SDL_SCANCODE_D])
-		position->x += speed;
-	if (keys[SDL_SCANCODE_LSHIFT] || keys[SDL_SCANCODE_RSHIFT])
-		position->y -= speed;
-	if (keys[SDL_SCANCODE_SPACE])
-		position->y += speed;
-
-	if (keys[SDL_SCANCODE_LEFT])
-		rotation->y -= speed;
-	if (keys[SDL_SCANCODE_RIGHT])
-		rotation->y += speed;
-	if (keys[SDL_SCANCODE_UP])
-		rotation->x += speed;
-	if (keys[SDL_SCANCODE_DOWN])
-		rotation->x -= speed;
+	event_move(keys, position, 0.1);
+	event_rotate(keys, rotation, 0.1);
 	return (1);
 }

@@ -40,47 +40,60 @@ void	init_scene(t_app *app)
 	counts[COUNT_CYLINDER] = 1;
 	counts[COUNT_LIGHT] = 4;
 
-	/* Planes */
+	/* Scene malloc */
 	scene->planes = (t_plane *)malloc(sizeof(t_plane) * counts[COUNT_PLANES]);
-	scene->planes[0] = plane_new(
-			vec_new(0.0, 0.0, -7.0),
-			vec_new(0.0, 0.0, -1.0),
-			material_new(0.8, 0.8, 10, WHITE));
-	scene->planes[1] = plane_new(
+	scene->cylinders = (t_cylinder *)malloc(sizeof(t_cylinder) * counts[COUNT_CYLINDER]);
+	scene->spheres = (t_sphere *)malloc(sizeof(t_sphere) * counts[COUNT_SPHERE]);
+	scene->cones = (t_cone *)malloc((sizeof(t_cone) * counts[COUNT_CONE]));
+	scene->light = (t_light *)malloc(sizeof(t_light) * counts[COUNT_LIGHT]);
+
+	/* Reset counts */
+	counts[COUNT_SPHERE] = 0;
+	counts[COUNT_PLANES] = 0;
+	counts[COUNT_CONE] = 0;
+	counts[COUNT_CYLINDER] = 0;
+	counts[COUNT_LIGHT] = 0;
+
+	/* Planes */
+//	scene->planes[counts[COUNT_PLANES]++] = plane_new(
+//			vec_new(0.0, 0.0, -7.0),
+//			vec_new(0.0, 0.0, -1.0),
+//			material_new(0.8, 0.8, 10, WHITE));
+	scene->planes[counts[COUNT_PLANES]++] = plane_new(
 			vec_new(0.0, -1.0, 0.0),
 			vec_new(0.0, -1.0, 0.0),
 			material_new(0.8, 0.8, 10, WHITE));
 
 	/* Cylinder */
-	scene->cylinders = (t_cylinder *)malloc(sizeof(t_cylinder) * counts[COUNT_CYLINDER]);
-	scene->cylinders[0] = cylinder_new(
-			vec_new(0.0, 0.0, -3.5), 0.5,
-			material_new(0.8, 0.8, 15, BROWN));
+	scene->cylinders[counts[COUNT_CYLINDER]++] = cylinder_new(
+			vec_new(2.0, 0.0, -5.0), 0.5,
+			material_new(0.8, 0.8, 15, PINK));
 
 	/* Sphere */
-	scene->spheres = (t_sphere *)malloc(sizeof(t_sphere) * counts[COUNT_SPHERE]);
-	scene->spheres[0] = sphere_new(
+	scene->spheres[counts[COUNT_SPHERE]++] = sphere_new(
 			vec_new(-1.2, 0.0, -3.0), 0.5,
 			material_new(0.8, 1.8, 150, RED));
-	scene->spheres[1] = sphere_new(
+	scene->spheres[counts[COUNT_SPHERE]++] = sphere_new(
+			vec_new(0.0, 0.0, -3.0), 0.6,
+			material_new(0.4, 0.4, 100, WHITE));
+	scene->spheres[counts[COUNT_SPHERE]++] = sphere_new(
 			vec_new(1.2, 0.0, -3.0), 0.5,
-			material_new(0.8, 0.2, 150, BROWN));
-	scene->spheres[2] = sphere_new(
-			vec_new(0.0, 0.0, -3.0), 0.5,
-			material_new(0.8, 0.2, 150, WHITE));
+			material_new(0.8, 0.1, 10, BROWN));
 
 	/*Cone*/
-	scene->cones = (t_cone *)malloc((sizeof(t_cone) * counts[COUNT_CONE]));
-	scene->cones[0] = cone_new(
-			vec_new(0, 0, -3.0f), 1.0f, 2.0f,
-			material_new(0.8f, 0.8f, 150, WHITE));
+	scene->cones[counts[COUNT_CONE]++] = cone_new(
+			vec_new(-2.0, 0, -5.0), 1.0, 2.0,
+			material_new(0.8, 0.8, 150, GREEN));
 
 	/* Light */
-	scene->light = (t_light *)malloc(sizeof(t_light) * counts[COUNT_LIGHT]);
-	scene->light[0] = light_new(vec_new(10.0, 1.0, -3.0), 0.5);
-	scene->light[1] = light_new(vec_new(-10.0, 1.0, -3.0), 0.5);
-	scene->light[2] = light_new(vec_new(0.0, 10.0, -1.0), 1.0);
-	scene->light[3] = light_new(vec_new(0.0, 0.0, 5.0), 1.0);
+//	scene->light[counts[COUNT_LIGHT]++] = light_new(
+//			vec_new(10.0, 1.0, -3.0), 0.5);
+//	scene->light[counts[COUNT_LIGHT]++] = light_new(
+//			vec_new(-10.0, 1.0, -3.0), 0.5);
+	scene->light[counts[COUNT_LIGHT]++] = light_new(
+			vec_new(15.0, 1.0, -5.0), 0.8);
+	scene->light[counts[COUNT_LIGHT]++] = light_new(
+			vec_new(0.0, 1.0, 5.0), 0.5);
 
 	/* Camera */
 	set_camera(
@@ -97,7 +110,6 @@ int		render_loop(t_app *app)
 	{
 		if (!event_handling(app))
 			break;
-
 		trace_rays(app, 0);
 		SDL_UpdateWindowSurface(app->sdl->window);
 	}

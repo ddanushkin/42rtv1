@@ -5,7 +5,7 @@ void	hit_objects(t_scene scene, t_ray ray, t_hit *hit)
 	hit->d = INFINITY;
 	hit->collided = FALSE;
 	check_planes(scene, ray, hit);
-	//check_spheres(scene, ray, hit);
+	check_spheres(scene, ray, hit);
 	check_cylinder(scene, ray, hit);
 	check_cone(scene, ray, hit);
 }

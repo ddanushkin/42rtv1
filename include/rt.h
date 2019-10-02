@@ -90,18 +90,18 @@ typedef struct	s_plane
 typedef struct	s_cone
 {
 	t_vec		position;
+	t_vec		normal;
 	double 		radius;
 	double		height;
-	double		angle;
 	t_material	mat;
 }				t_cone;
 
 typedef struct	s_cylinder
 {
 	t_vec		position;
+	t_vec		normal;
 	double 		radius;
 	double 		height;
-	double 		angle;
 	t_material	mat;
 }				t_cylinder;
 
@@ -164,6 +164,10 @@ t_vec		vec_mul_by(t_vec v, double k);
 t_vec		vec_div_by(t_vec v, double k);
 t_vec		vec_invert(t_vec v);
 t_vec		vec_point_at(t_vec ori, t_vec dir, double t);
+void		vec_add_ptr(t_vec *ov, t_vec v2);
+void		vec_sub_ptr(t_vec *ov, t_vec v2);
+void		vec_mul_by_ptr(t_vec *ov, double k);
+void		vec_div_by_ptr(t_vec *ov, double k);
 
 void		color_set(t_color *c, int r, int g, int b);
 t_color		color_new(int r, int g, int b);

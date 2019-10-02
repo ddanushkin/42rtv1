@@ -45,11 +45,17 @@ void	init_scene(t_app *app)
 	scene->planes[0] = plane_new(
 			vec_new(0.0, 0.0, -4.0),
 			vec_new(0.0, 0.0, -1.0),
-			material_new(0.1, 0.1, 10, BLUE));
+			material_new(0.1, 0.1, 10, WHITE));
 	scene->planes[1] = plane_new(
 			vec_new(0.0, -1.0, 0.0),
 			vec_new(0.0, -1.0, 0.0),
-			material_new(0.1, 0.1, 10, GREY));
+			material_new(0.1, 0.1, 10, WHITE));
+
+	/* Cylinder */
+	scene->cylinders = (t_cylinder *)malloc(sizeof(t_cylinder) * counts[COUNT_CYLINDER]);
+	scene->cylinders[0] = cylinder_new(
+			vec_new(0.0, 0.0, -3.5), 0.5,
+			material_new(0.8, 0.8, 15, BROWN));
 
 	/* Sphere */
 	scene->spheres = (t_sphere *)malloc(sizeof(t_sphere) * counts[COUNT_SPHERE]);

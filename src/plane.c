@@ -21,3 +21,26 @@ double	plane_intersection(t_ray ray, t_vec pos, t_vec normal)
 		t = vec_dot(normal, vec_sub(pos,ray.origin)) / denom;
 	return (t);
 }
+
+void	check_planes(t_scene scene, t_ray ray, t_hit *hit)
+{
+	int			i;
+	double		dist;
+	t_plane		plane;
+
+	i = 0;
+	while (i < scene.counts[COUNT_PLANES])
+	{
+		plane = scene.planes[i];
+		dist = plane_intersection(ray, plane.position, plane.normal);
+		if (dist < hit->d)
+		{
+			hit->m = plane.mat;
+			hit->d = dist;
+			hit->p = vec_point_at(ray.origin, ray.direction, dist);
+			hit->n = vec_invert(plane.normal);
+			hit->collided = TRUE;
+		}
+		i++;
+	}
+}

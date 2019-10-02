@@ -69,6 +69,8 @@ typedef struct	s_hit
 	double 		d;
 	t_material	m;
 	int 		collided;
+	double 		diffuse;
+	double		specular;
 }				t_hit;
 
 typedef struct	s_sphere
@@ -130,9 +132,9 @@ typedef struct	s_sdl
 typedef struct	s_scene
 {
 	t_sphere	*spheres;
-	t_sphere	*cones;
+	t_cone		*cones;
 	t_plane		*planes;
-	t_sphere	*cylinders;
+	t_cylinder	*cylinders;
 	int 		counts[5];
 	t_light		*light;
 	t_camera	camera;
@@ -183,11 +185,19 @@ void		trace_rays(t_app *app, int scene_id);
 double		sphere_intersection(t_vec center, double radius, t_ray ray);
 t_vec		sphere_normal(t_vec center, t_vec p);
 t_sphere	sphere_new(t_vec pos, double radius, t_material mat);
+void		check_spheres(t_scene scene, t_ray ray, t_hit *hit);
 
 double		plane_intersection(t_ray ray, t_vec pos, t_vec normal);
 t_plane		plane_new(t_vec pos, t_vec normal, t_material mat);
+void		check_planes(t_scene scene, t_ray ray, t_hit *hit);
 
 t_light		light_new(t_vec position, double intensity);
+void		process_lights(t_scene scene, t_ray ray, t_hit *hit);
+
+t_cylinder	cylinder_new(t_vec pos, double radius, t_material mat);
+double		cylinder_intersection(t_ray ray, t_vec center, double rad);
+t_vec		cylinder_normal(t_vec center, t_vec p);
+void		check_cylinder(t_scene scene, t_ray ray, t_hit *hit);
 
 t_material	material_new(double albedo_0, double albedo_1, double exp, t_color color);
 #endif

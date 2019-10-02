@@ -48,11 +48,6 @@ void	process_lights(t_scene scene, t_ray ray, t_hit *hit)
 	hit->specular = 0;
 	while (i < scene.counts[COUNT_LIGHT])
 	{
-		if (i == 3)
-		{
-			i++;
-			continue;
-		}
 		light = scene.light[i];
 		calculate_light(scene, light, hit, ray);
 		i++;

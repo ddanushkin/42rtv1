@@ -5,7 +5,7 @@ int		event_handling(t_app *app)
 	const uint8_t *keys;
 
 	keys = app->keys;
-	SDL_WaitEvent(&app->sdl->event);
+	SDL_PollEvent(&app->sdl->event);
 	if (app->sdl->event.type == SDL_QUIT)
 		return(0);
 	if (keys[SDL_SCANCODE_ESCAPE])

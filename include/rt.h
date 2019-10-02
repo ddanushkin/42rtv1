@@ -91,8 +91,8 @@ typedef struct	s_cone
 {
 	t_vec		position;
 	double 		radius;
-	double 		height;
-	double 		angle;
+	double		height;
+	double		angle;
 	t_material	mat;
 }				t_cone;
 
@@ -190,6 +190,10 @@ void		check_spheres(t_scene scene, t_ray ray, t_hit *hit);
 double		plane_intersection(t_ray ray, t_vec pos, t_vec normal);
 t_plane		plane_new(t_vec pos, t_vec normal, t_material mat);
 void		check_planes(t_scene scene, t_ray ray, t_hit *hit);
+
+t_cone	cone_new(t_vec pos, double radius, double height, t_material material);
+void	check_cone(t_scene scene, t_ray ray, t_hit *hit);
+
 
 t_light		light_new(t_vec position, double intensity);
 void		process_lights(t_scene scene, t_ray ray, t_hit *hit);

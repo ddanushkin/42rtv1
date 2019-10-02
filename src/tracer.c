@@ -7,6 +7,7 @@ void	hit_objects(t_scene scene, t_ray ray, t_hit *hit)
 	check_planes(scene, ray, hit);
 	//check_spheres(scene, ray, hit);
 	check_cylinder(scene, ray, hit);
+	check_cone(scene, ray, hit);
 }
 
 void	trace_rays(t_app *app, int scene_id)

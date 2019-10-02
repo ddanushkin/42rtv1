@@ -43,13 +43,13 @@ void	init_scene(t_app *app)
 	/* Planes */
 	scene->planes = (t_plane *)malloc(sizeof(t_plane) * counts[COUNT_PLANES]);
 	scene->planes[0] = plane_new(
-			vec_new(0.0, 0.0, -4.0),
+			vec_new(0.0, 0.0, -7.0),
 			vec_new(0.0, 0.0, -1.0),
-			material_new(0.1, 0.1, 10, WHITE));
+			material_new(0.8, 0.8, 10, WHITE));
 	scene->planes[1] = plane_new(
 			vec_new(0.0, -1.0, 0.0),
 			vec_new(0.0, -1.0, 0.0),
-			material_new(0.1, 0.1, 10, WHITE));
+			material_new(0.8, 0.8, 10, WHITE));
 
 	/* Cylinder */
 	scene->cylinders = (t_cylinder *)malloc(sizeof(t_cylinder) * counts[COUNT_CYLINDER]);
@@ -69,11 +69,17 @@ void	init_scene(t_app *app)
 			vec_new(0.0, 0.0, -3.0), 0.5,
 			material_new(0.8, 0.2, 150, WHITE));
 
+	/*Cone*/
+	scene->cones = (t_cone *)malloc((sizeof(t_cone) * counts[COUNT_CONE]));
+	scene->cones[0] = cone_new(
+			vec_new(0, 0, -3.0f), 1.0f, 2.0f,
+			material_new(0.8f, 0.8f, 150, WHITE));
+
 	/* Light */
 	scene->light = (t_light *)malloc(sizeof(t_light) * counts[COUNT_LIGHT]);
 	scene->light[0] = light_new(vec_new(10.0, 1.0, -3.0), 0.5);
 	scene->light[1] = light_new(vec_new(-10.0, 1.0, -3.0), 0.5);
-	scene->light[2] = light_new(vec_new(0.0, 10.0, -3.0), 1.0);
+	scene->light[2] = light_new(vec_new(0.0, 10.0, -1.0), 1.0);
 	scene->light[3] = light_new(vec_new(0.0, 0.0, 5.0), 1.0);
 
 	/* Camera */

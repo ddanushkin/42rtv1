@@ -111,11 +111,11 @@ void	init_scene(t_app *app)
 
 	/* Light */
 	scene->light[counts[COUNT_LIGHT]++] = light_new(
-			vec_new(5.0, 0.0, 0.0), 100.0);
+			vec_new(5.0, 0.0, 0.0), 300.0);
 	scene->light[counts[COUNT_LIGHT]++] = light_new(
 			vec_new(-5.0, 0.0, 0.0), 100.0);
 	scene->light[counts[COUNT_LIGHT]++] = light_new(
-			vec_new(0.0, 3.0, 0.0), 100.0);
+			vec_new(0.0, 3.0, 0.0), 200.0);
 
 	app->pos = vec_new(0.0, 0.0, 2.0);
 	app->rot = vec_new(0.0, 0.0, 0.0);

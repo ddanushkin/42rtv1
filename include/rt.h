@@ -164,7 +164,6 @@ typedef struct	s_thread_data
 	int 			ex;
 	int 			sy;
 	int 			ey;
-	pthread_mutex_t	*lock;
 }				t_thread_data;
 
 void		set_pixel(SDL_Surface *surface, int x, int y, t_color c);

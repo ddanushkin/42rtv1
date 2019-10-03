@@ -20,7 +20,7 @@ void	trace_ray(t_app *app, int scene_id, int x, int y)
 	hit_objects(app->scene[scene_id], ray, &hit);
 	if (hit.collided && hit.d < INFINITY)
 	{
-		//process_lights(app->scene[scene_id], ray, &hit);
+		process_lights(app->scene[scene_id], ray, &hit);
 		set_pixel(app->sdl->surface, x, y, hit.m.c);
 	}
 	else
@@ -49,9 +49,7 @@ void	trace_rays(t_app *app, int scene_id)
 	int				tr_count;
 	t_thread_data	*tr_data;
 	int 			tr_id;
-	pthread_mutex_t	lock;
 
-	pthread_mutex_init(&lock, NULL);
 	tr_count = 12;
 	tr_data = (t_thread_data *)malloc(sizeof(t_thread_data) * tr_count);
 	tr_id = 0;
@@ -63,15 +61,13 @@ void	trace_rays(t_app *app, int scene_id)
 		tr_data[tr_id].ex = WIDTH;
 		tr_data[tr_id].sy = tr_id * (HEIGHT / tr_count);
 		tr_data[tr_id].ey = (tr_id + 1) * (HEIGHT / tr_count);
-		tr_data[tr_id].lock = &lock;
 		pthread_create(&tr_data->tr, NULL, init_thread, &tr_data[tr_id++]);
 	}
 	tr_id = 0;
 	while (tr_id < tr_count)
 	{
-		pthread_join(tr_data[tr_id - 1].tr, NULL);
+		pthread_join(tr_data[tr_id].tr, NULL);
 		tr_id++;
 	}
-	pthread_mutex_destroy(&lock);
 	free(tr_data);
 }

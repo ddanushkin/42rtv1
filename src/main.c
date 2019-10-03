@@ -130,6 +130,8 @@ void	init_scene(t_app *app)
 
 int		render_loop(t_app *app)
 {
+	trace_rays(app, 0);
+	SDL_UpdateWindowSurface(app->sdl->window);
 	while (1)
 	{
 		if (!event_handling(app))

@@ -13,7 +13,10 @@ void	event_redraw(t_app *app, const uint8_t *keys)
 	|| keys[SDL_SCANCODE_RIGHT]
 	|| keys[SDL_SCANCODE_UP]
 	|| keys[SDL_SCANCODE_DOWN])
-		app->redraw = TRUE;
+	{
+		trace_rays(app, 0);
+		SDL_UpdateWindowSurface(app->sdl->window);
+	}
 }
 
 void 	event_move(const uint8_t *keys, t_vec *pos, double speed)

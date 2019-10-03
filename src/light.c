@@ -5,13 +5,37 @@ t_vec	reflect(t_vec i, t_vec n)
 	return (vec_sub(i, vec_mul_by(n, 2.0 * vec_dot(i, n))));
 }
 
-t_light	light_new(t_vec position, double intensity)
+t_light	light_new(t_vec position, t_color color, double intensity)
 {
 	t_light light;
 
 	light.position = position;
 	light.intensity = intensity;
+	light.mat.c = color;
 	return (light);
+}
+
+t_color	blend_color(t_color c1, t_color c2)
+{
+	t_color c;
+	t_color w;
+	double br;
+
+	w.r = MIN(c1.r, MIN(c1.g, c1.b));
+	w.g = MIN(c2.r, MIN(c2.g, c2.b));
+	w.b = (w.r + w.g) / 2;
+	c1.r -= w.r;
+	c1.g -= w.r;
+	c1.b -= w.r;
+	c2.r -= w.g;
+	c2.g -= w.g;
+	c2.b -= w.g;
+	br = (MAX(c1.r, MAX(c1.g, c1.b)) + MAX(c2.r, MAX(c2.g, c2.b)))
+			/ (2.0 * 255.0);
+	c.r = (c1.r + c2.r) * br + w.b;
+	c.g = (c1.g + c2.g) * br + w.b;
+	c.b = (c1.b + c2.b) * br + w.b;
+	return (c);
 }
 
 void	calculate_light(t_scene scene, t_light light, t_hit *hit, t_ray ray)

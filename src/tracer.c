@@ -50,7 +50,7 @@ void	trace_rays(t_app *app, int scene_id)
 	t_thread_data	*tr_data;
 	int 			tr_id;
 
-	tr_count = 12;
+	tr_count = 8;
 	tr_data = (t_thread_data *)malloc(sizeof(t_thread_data) * tr_count);
 	tr_id = 0;
 	while (tr_id < tr_count)

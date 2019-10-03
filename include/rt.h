@@ -8,8 +8,8 @@
 # include <pthread.h>
 
 # define TITLE "RTV1"
-# define WIDTH 640
-# define HEIGHT 480
+# define WIDTH 1024
+# define HEIGHT 720
 # define ASP_RATIO (double)WIDTH / (double)HEIGHT
 # define HWIDTH ((double)WIDTH*0.5f)
 # define HHEIGHT ((double)HEIGHT*0.5f)
@@ -214,7 +214,7 @@ void		check_planes(t_scene scene, t_ray ray, t_hit *hit);
 t_cone		cone_new(t_vec pos, t_vec rot, double angle, t_material material);
 void		check_cone(t_scene scene, t_ray ray, t_hit *hit);
 
-t_light		light_new(t_vec position, double intensity);
+t_light		light_new(t_vec position, t_color color, double intensity);
 void		process_lights(t_scene scene, t_ray ray, t_hit *hit);
 
 t_cylinder	cylinder_new(t_vec pos, t_vec rot, double rad, t_material mat);

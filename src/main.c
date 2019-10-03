@@ -111,11 +111,17 @@ void	init_scene(t_app *app)
 
 	/* Light */
 	scene->light[counts[COUNT_LIGHT]++] = light_new(
-			vec_new(5.0, 0.0, 0.0), 300.0);
+			vec_new(5.0, 0.0, 0.0),
+			color_new(255, 0, 0),
+			500.0);
 	scene->light[counts[COUNT_LIGHT]++] = light_new(
-			vec_new(-5.0, 0.0, 0.0), 100.0);
-	scene->light[counts[COUNT_LIGHT]++] = light_new(
-			vec_new(0.0, 3.0, 0.0), 200.0);
+			vec_new(-5.0, 0.0, 0.0),
+			color_new(0, 0, 255),
+			300.0);
+//	scene->light[counts[COUNT_LIGHT]++] = light_new(
+//			vec_new(0.0, 3.0, 0.0),
+//			color_new(255, 255, 0),
+//			100.0);
 
 	app->pos = vec_new(0.0, 0.0, 2.0);
 	app->rot = vec_new(0.0, 0.0, 0.0);
@@ -128,8 +134,6 @@ int		render_loop(t_app *app)
 	{
 		if (!event_handling(app))
 			break;
-		trace_rays(app, 0);
-		SDL_UpdateWindowSurface(app->sdl->window);
 	}
 	return (0);
 }

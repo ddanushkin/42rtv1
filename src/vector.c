@@ -10,7 +10,7 @@ t_vec	vec_new(double x, double y, double z)
 	return (new_v);
 }
 
-t_vec	vec_point_at(t_vec ori, t_vec dir, double t)
+t_vec	vec_point_at(t_ray ray, double length)
 {
-	return (vec_add(ori, vec_mul_by(dir, t)));
+	return (vec_add(ray.o, vec_mul_by(ray.d, length)));
 }

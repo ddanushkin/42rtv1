@@ -5,10 +5,11 @@
 # include "libft.h"
 # include <stdio.h> /* TODO: Delete before finish project */
 # include <SDL.h>
+# include <pthread.h>
 
 # define TITLE "RTV1"
-# define WIDTH 500
-# define HEIGHT 500
+# define WIDTH 640
+# define HEIGHT 480
 # define ASP_RATIO (double)WIDTH / (double)HEIGHT
 # define HWIDTH ((double)WIDTH*0.5f)
 # define HHEIGHT ((double)HEIGHT*0.5f)
@@ -49,8 +50,8 @@ typedef struct	s_vec
 
 typedef struct	s_ray
 {
-	t_vec		origin;
-	t_vec		direction;
+	t_vec		o;
+	t_vec		d;
 	t_vec		point_at;
 }				t_ray;
 
@@ -75,32 +76,34 @@ typedef struct	s_hit
 
 typedef struct	s_sphere
 {
-	t_vec		position;
-	double		radius;
+	t_vec		pos;
+	double		rad;
 	t_material	mat;
 }				t_sphere;
 
 typedef struct	s_plane
 {
-	t_vec		position;
-	t_vec		normal;
+	t_vec		pos;
+	t_vec		rot;
+	t_vec		axis;
 	t_material	mat;
 }				t_plane;
 
 typedef struct	s_cone
 {
-	t_vec		position;
-	t_vec		normal;
-	double 		radius;
-	double		height;
+	t_vec		pos;
+	t_vec		axis;
+	t_vec		rot;
+	double		angle;
 	t_material	mat;
 }				t_cone;
 
 typedef struct	s_cylinder
 {
-	t_vec		position;
-	t_vec		normal;
-	double 		radius;
+	t_vec		pos;
+	t_vec		axis;
+	t_vec		rot;
+	double 		rad;
 	double 		height;
 	t_material	mat;
 }				t_cylinder;
@@ -147,8 +150,22 @@ typedef struct	s_app
 	t_scene		*scene;
 	double 		fov;
 	double 		asp_rat;
+	t_vec		pos;
 	t_vec		rot;
+	int 		redraw;
 }				t_app;
+
+typedef struct	s_thread_data
+{
+	pthread_t 		tr;
+	t_app			*app;
+	int 			scene_id;
+	int 			sx;
+	int 			ex;
+	int 			sy;
+	int 			ey;
+	pthread_mutex_t	*lock;
+}				t_thread_data;
 
 void		set_pixel(SDL_Surface *surface, int x, int y, t_color c);
 t_color		get_pixel(SDL_Surface *surface, int x, int y);
@@ -163,7 +180,7 @@ t_vec		vec_sub(t_vec v1, t_vec v2);
 t_vec		vec_mul_by(t_vec v, double k);
 t_vec		vec_div_by(t_vec v, double k);
 t_vec		vec_invert(t_vec v);
-t_vec		vec_point_at(t_vec ori, t_vec dir, double t);
+t_vec		vec_point_at(t_ray ray, double length);
 void		vec_add_ptr(t_vec *ov, t_vec v2);
 void		vec_sub_ptr(t_vec *ov, t_vec v2);
 void		vec_mul_by_ptr(t_vec *ov, double k);
@@ -186,26 +203,27 @@ int			event_handling(t_app *app);
 
 void		trace_rays(t_app *app, int scene_id);
 
-double		sphere_intersection(t_vec center, double radius, t_ray ray);
+double		sphere_intersection(t_ray ray, t_sphere sphere);
 t_vec		sphere_normal(t_vec center, t_vec p);
-t_sphere	sphere_new(t_vec pos, double radius, t_material mat);
+t_sphere	sphere_new(t_vec pos, double rad, t_material mat);
 void		check_spheres(t_scene scene, t_ray ray, t_hit *hit);
 
-double		plane_intersection(t_ray ray, t_vec pos, t_vec normal);
-t_plane		plane_new(t_vec pos, t_vec normal, t_material mat);
+double		plane_intersection(t_ray ray, t_plane plane);
+t_plane		plane_new(t_vec pos, t_vec rot, t_material mat);
 void		check_planes(t_scene scene, t_ray ray, t_hit *hit);
 
-t_cone	cone_new(t_vec pos, double radius, double height, t_material material);
-void	check_cone(t_scene scene, t_ray ray, t_hit *hit);
-
+t_cone		cone_new(t_vec pos, t_vec rot, double angle, t_material material);
+void		check_cone(t_scene scene, t_ray ray, t_hit *hit);
 
 t_light		light_new(t_vec position, double intensity);
 void		process_lights(t_scene scene, t_ray ray, t_hit *hit);
 
-t_cylinder	cylinder_new(t_vec pos, double radius, t_material mat);
-double		cylinder_intersection(t_ray ray, t_vec center, double rad);
-t_vec		cylinder_normal(t_vec center, t_vec p);
+t_cylinder	cylinder_new(t_vec pos, t_vec rot, double rad, t_material mat);
+double		cylinder_intersection(t_ray ray, t_cylinder	obj);
+t_vec		cylinder_normal(t_ray ray, t_hit hit, t_cylinder obj);
 void		check_cylinder(t_scene scene, t_ray ray, t_hit *hit);
 
-t_material	material_new(double albedo_0, double albedo_1, double exp, t_color color);
+double		calc_abc(double a, double b, double c);
+void		set_axis(t_vec *axis, t_vec rot);
+t_material	mat_new(double a_0, double a_1, double exp, t_color color);
 #endif

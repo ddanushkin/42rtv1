@@ -1,59 +1,48 @@
 #include "rt.h"
 
-t_cone	cone_new(t_vec pos, double radius, double height, t_material material)
+t_cone	cone_new(t_vec pos, t_vec rot, double angle, t_material material)
 {
-	t_cone	cone_new;
+	t_cone	cone;
 
-	cone_new.position = pos;
-	cone_new.radius = radius;
-	cone_new.height = height;
-	cone_new.mat = material;
-	return (cone_new);
+	cone.pos = pos;
+	cone.rot = rot;
+	cone.angle = angle * M_PI / 180.0;
+	cone.mat = material;
+	return (cone);
 }
 
-static double	select_t(double  a, double b, double d)
+double	cone_intersection(t_ray ray, t_cone obj)
 {
-	double sqrt_delta;
-	double t1;
-	double t2;
+	t_vec	oc;
+	double	a;
+	double	b;
+	double	c;
+	double 	k;
 
-	sqrt_delta = sqrt(d);
-	t1 = (-b - sqrt_delta) / (2 * a);
-	t2 = (-b + sqrt_delta) / (2 * a);
-	if(t1 < 0.0)
-		t1 = t2;
-	if(t1 < 0.0)
-		return INFINITY;
-	return (t1);
+	oc = vec_sub(ray.o, obj.pos);
+	k = tan(obj.angle);
+	k = 1.0 + k * k;
+	a = vec_dot(ray.d, ray.d) - k * pow(vec_dot(ray.d, obj.axis), 2);
+	b = (vec_dot(ray.d, oc) - k * vec_dot(ray.d, obj.axis) * vec_dot(oc, obj.axis)) * 2.0;
+	c = vec_dot(oc, oc) - k * pow(vec_dot(oc, obj.axis), 2);
+	return (calc_abc(a, b, c));
 }
 
-double	cone_intersection(t_cone cone, t_ray ray)
+t_vec	cone_normal(t_ray ray, t_hit hit, t_cone obj)
 {
-	double	A = ray.origin.x - cone.position.x;
-	double	B = ray.origin.z - cone.position.z;
-	double	D = cone.height - ray.origin.y + cone.position.y;
+	t_vec	oc;
+	t_vec	n;
+	double	m;
+	double	k;
 
-	double	tan = (cone.radius / cone.height) * (cone.radius / cone.height);
-
-	double	a = (ray.direction.x * ray.direction.x) + (ray.direction.z * ray.direction.z) - (tan * (ray.direction.y * ray.direction.y));
-	double	b = (2 * A * ray.direction.x) + (2 * B * ray.direction.z) + (2 * tan * D * ray.direction.y);
-	double	c = (A * A) + (B * B) - (tan * (D * D));
-
-	double	delta = b * b - 4 * (a * c);
-	if(fabs(delta) < 0.001)
-		return INFINITY;
-	if(delta < 0.0)
-		return INFINITY;
-
-	return (select_t(a, b, delta));
-}
-
-t_vec	cone_normal(t_vec p, t_cone	cone)
-{
-	double	r = sqrt((p.x - cone.position.x) * (p.x - cone.position.x) + (p.z - cone.position.z) * (p.z - cone.position.z));
-	t_vec	n = vec_new(p.x - cone.position.x, r * (cone.radius / cone.height), p.z - cone.position.z);
-	n = vec_normalize(n);
-	return n;
+	oc = vec_sub(ray.o, obj.pos);
+	k = tan(obj.angle);
+	k = 1.0 + k * k;
+	m = vec_dot(ray.d, obj.axis) * hit.d + vec_dot(oc, obj.axis);
+	n = vec_sub(
+			vec_sub(hit.p, obj.pos),
+			vec_mul_by(vec_mul_by(obj.axis, m), k));
+	return vec_normalize(n);
 }
 
 void	check_cone(t_scene scene, t_ray ray, t_hit *hit)
@@ -66,13 +55,13 @@ void	check_cone(t_scene scene, t_ray ray, t_hit *hit)
 	while (i < scene.counts[COUNT_CONE])
 	{
 		cone = scene.cones[i];
-		dist = cone_intersection(cone, ray);
+		dist = cone_intersection(ray, cone);
 		if (dist < hit->d)
 		{
 			hit->m = cone.mat;
 			hit->d = dist;
-			hit->p = vec_point_at(ray.origin, ray.direction, dist);
-			hit->n = cone_normal(hit->p, cone);
+			hit->p = vec_point_at(ray, dist);
+			hit->n = cone_normal(ray, *hit, cone);
 			hit->collided = TRUE;
 		}
 		i++;

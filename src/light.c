@@ -17,24 +17,30 @@ t_light	light_new(t_vec position, double intensity)
 void	calculate_light(t_scene scene, t_light light, t_hit *hit, t_ray ray)
 {
 	t_vec	light_dir;
+	double	light_dist;
 	t_ray	shadow_ray;
 	t_hit	shadow_hit;
 
 	light_dir = vec_normalize(vec_sub(light.position, hit->p));
-	shadow_ray.origin = vec_add(hit->p, vec_mul_by(hit->n, 0.1));
-	shadow_ray.direction = light_dir;
+	light_dist = sqrt(
+			pow((light.position.x - hit->p.x), 2.0) +
+			pow((light.position.y - hit->p.y), 2.0) +
+			pow((light.position.z - hit->p.z), 2.0)) ;
+	shadow_ray.o = vec_add(hit->p, vec_mul_by(hit->n, 0.1));
+	shadow_ray.d = light_dir;
 	shadow_hit.d = INFINITY;
 	shadow_hit.collided = FALSE;
 	check_spheres(scene, shadow_ray, &shadow_hit);
 	check_cylinder(scene, shadow_ray, &shadow_hit);
 	check_cone(scene, shadow_ray, &shadow_hit);
-	if (!shadow_hit.collided)
+	if (!shadow_hit.collided || shadow_hit.d > light_dist)
 	{
+		light.intensity /= 4.0 * M_PI * pow(light_dist, 2.0);
 		hit->diffuse += MAX(0.0, vec_dot(light_dir, hit->n))
 						* light.intensity;
 		hit->specular += pow(MAX(0.0,
 			vec_dot(vec_invert(reflect(vec_invert(light_dir), hit->n)),
-			ray.direction)), hit->m.exp) * light.intensity;
+			ray.d)), hit->m.exp) * light.intensity;
 	}
 }
 

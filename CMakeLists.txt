@@ -17,6 +17,7 @@ if(MSVC OR MSYS OR MINGW)
     link_directories(sdl2/win32/lib/)
     add_executable(${CMAKE_PROJECT_NAME} ${PROJ_SRC} ${LIBFT_SRC})
     target_link_libraries(${CMAKE_PROJECT_NAME} "-lmingw32 -lSDL2main -lSDL2")
+    target_link_libraries(${CMAKE_PROJECT_NAME} "-pthread")
     add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_directory
             "${PROJECT_SOURCE_DIR}/sdl2/win32/bin/"
@@ -28,4 +29,5 @@ if(APPLE)
     include_directories("/Users/$ENV{USER}/Library/Frameworks/SDL2.framework/Versions/A/Headers/")
     add_executable(${CMAKE_PROJECT_NAME} ${PROJ_SRC} ${LIBFT_SRC})
     target_link_libraries(${CMAKE_PROJECT_NAME} "-F /Users/$ENV{USER}/Library/Frameworks/ -framework SDL2")
+    target_link_libraries(${CMAKE_PROJECT_NAME} "-pthread")
 endif()

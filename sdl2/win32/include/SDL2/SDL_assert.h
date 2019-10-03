@@ -10,7 +10,7 @@
   including commercial applications, and to alter it and redistribute it
   freely, subject to the following restrictions:
 
-  1. The origin of this software must not be misrepresented; you must not
+  1. The o of this software must not be misrepresented; you must not
      claim that you wrote the original software. If you use this software
      in a product, an acknowledgment in the product documentation would be
      appreciated but is not required.
@@ -169,7 +169,7 @@ extern DECLSPEC SDL_AssertState SDLCALL SDL_ReportAssertion(SDL_AssertData *,
 #   define SDL_assert(condition) SDL_disabled_assert(condition)
 #   define SDL_assert_release(condition) SDL_enabled_assert(condition)
 #   define SDL_assert_paranoid(condition) SDL_disabled_assert(condition)
-#elif SDL_ASSERT_LEVEL == 2  /* normal settings. */
+#elif SDL_ASSERT_LEVEL == 2  /* axis settings. */
 #   define SDL_assert(condition) SDL_enabled_assert(condition)
 #   define SDL_assert_release(condition) SDL_enabled_assert(condition)
 #   define SDL_assert_paranoid(condition) SDL_disabled_assert(condition)

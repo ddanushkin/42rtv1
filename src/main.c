@@ -55,53 +55,71 @@ void	init_scene(t_app *app)
 	counts[COUNT_LIGHT] = 0;
 
 	/* Planes */
-//	scene->planes[counts[COUNT_PLANES]++] = plane_new(
-//			vec_new(0.0, 0.0, -7.0),
-//			vec_new(0.0, 0.0, -1.0),
-//			material_new(0.8, 0.8, 10, WHITE));
-	scene->planes[counts[COUNT_PLANES]++] = plane_new(
-			vec_new(0.0, -1.0, 0.0),
-			vec_new(0.0, -1.0, 0.0),
-			material_new(0.8, 0.8, 10, WHITE));
+	scene->planes[counts[COUNT_PLANES]] = plane_new(
+			vec_new(0.0, -10.0, 0.0),
+			vec_new(0.0, 0.0, 45.0),
+			mat_new(0.8, 0.8, 10, WHITE));
+	set_axis(
+			&scene->planes[counts[COUNT_PLANES]].axis,
+			scene->planes[counts[COUNT_PLANES]].rot);
+	counts[COUNT_PLANES]++;
+
+	scene->planes[counts[COUNT_PLANES]] = plane_new(
+			vec_new(0.0, -10.0, 0.0),
+			vec_new(0.0, 0.0, -45.0),
+			mat_new(0.8, 0.8, 10, WHITE));
+	set_axis(
+			&scene->planes[counts[COUNT_PLANES]].axis,
+			scene->planes[counts[COUNT_PLANES]].rot);
+	counts[COUNT_PLANES]++;
 
 	/* Cylinder */
-	scene->cylinders[counts[COUNT_CYLINDER]++] = cylinder_new(
-			vec_new(2.0, 0.0, -5.0), 0.5,
-			material_new(0.8, 0.8, 15, PINK));
+	scene->cylinders[counts[COUNT_CYLINDER]] = cylinder_new(
+			vec_new(0.0, 2.0, -5.5),
+			vec_new(0.0, 0.0, -25.0),
+			0.5,
+			mat_new(0.8, 0.8, 15, PINK));
+	set_axis(
+			&scene->cylinders[counts[COUNT_CYLINDER]].axis,
+			scene->cylinders[counts[COUNT_CYLINDER]].rot);
+	counts[COUNT_CYLINDER]++;
+
+	/*Cone*/
+	scene->cones[counts[COUNT_CONE]] = cone_new(
+			vec_new(0.0, 1.0, -5.0),
+			vec_new(0.0, 0.0, 25.0),
+			10.0,
+			mat_new(0.8, 0.8, 150, GREEN));
+	set_axis(
+			&scene->cones[counts[COUNT_CONE]].axis,
+			scene->cones[counts[COUNT_CONE]].rot);
+	counts[COUNT_CONE]++;
 
 	/* Sphere */
 	scene->spheres[counts[COUNT_SPHERE]++] = sphere_new(
-			vec_new(-1.2, 0.0, -3.0), 0.5,
-			material_new(0.8, 1.8, 150, RED));
+			vec_new(-1.2, 0.0, -3.0),
+			0.5,
+			mat_new(0.8, 1.8, 150, RED));
 	scene->spheres[counts[COUNT_SPHERE]++] = sphere_new(
-			vec_new(0.0, 0.0, -3.0), 0.6,
-			material_new(0.4, 0.4, 100, WHITE));
+			vec_new(0.0, 0.0, -3.0),
+			0.6,
+			mat_new(0.4, 0.4, 100, WHITE));
 	scene->spheres[counts[COUNT_SPHERE]++] = sphere_new(
-			vec_new(1.2, 0.0, -3.0), 0.5,
-			material_new(0.8, 0.1, 10, BROWN));
-
-	/*Cone*/
-	scene->cones[counts[COUNT_CONE]++] = cone_new(
-			vec_new(-2.0, 0, -5.0), 1.0, 2.0,
-			material_new(0.8, 0.8, 150, GREEN));
+			vec_new(1.2, 0.0, -3.0),
+			0.5,
+			mat_new(0.8, 0.1, 10, BROWN));
 
 	/* Light */
-//	scene->light[counts[COUNT_LIGHT]++] = light_new(
-//			vec_new(10.0, 1.0, -3.0), 0.5);
-//	scene->light[counts[COUNT_LIGHT]++] = light_new(
-//			vec_new(-10.0, 1.0, -3.0), 0.5);
 	scene->light[counts[COUNT_LIGHT]++] = light_new(
-			vec_new(15.0, 1.0, -5.0), 0.8);
+			vec_new(5.0, 0.0, 0.0), 100.0);
 	scene->light[counts[COUNT_LIGHT]++] = light_new(
-			vec_new(0.0, 1.0, 5.0), 0.5);
+			vec_new(-5.0, 0.0, 0.0), 100.0);
+	scene->light[counts[COUNT_LIGHT]++] = light_new(
+			vec_new(0.0, 3.0, 0.0), 100.0);
 
-	/* Camera */
-	set_camera(
-			&scene->camera,
-			vec_new(0.0, 0.0, 0.0),
-			vec_new(0.0, 0.0, 0.0));
-
+	app->pos = vec_new(0.0, 0.0, 2.0);
 	app->rot = vec_new(0.0, 0.0, 0.0);
+	app->redraw = TRUE;
 }
 
 int		render_loop(t_app *app)

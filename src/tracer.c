@@ -50,7 +50,7 @@ void	trace_rays(t_app *app, int scene_id)
 	t_thread_data	*tr_data;
 	int 			tr_id;
 
-	tr_count = 8;
+	tr_count = 16;
 	tr_data = (t_thread_data *)malloc(sizeof(t_thread_data) * tr_count);
 	tr_id = 0;
 	while (tr_id < tr_count)
@@ -61,7 +61,7 @@ void	trace_rays(t_app *app, int scene_id)
 		tr_data[tr_id].ex = WIDTH;
 		tr_data[tr_id].sy = tr_id * (HEIGHT / tr_count);
 		tr_data[tr_id].ey = (tr_id + 1) * (HEIGHT / tr_count);
-		pthread_create(&tr_data->tr, NULL, init_thread, &tr_data[tr_id++]);
+		pthread_create(&tr_data[tr_id].tr, NULL, init_thread, &tr_data[tr_id++]);
 	}
 	tr_id = 0;
 	while (tr_id < tr_count)

@@ -36,7 +36,7 @@ void			check_spheres(t_scene scene, t_ray ray, t_hit *hit)
 	t_sphere	sphere;
 
 	i = 0;
-	while (i < scene.counts[COUNT_SPHERE])
+	while (i < scene.counts[SPHERE_OBJ])
 	{
 		sphere = scene.spheres[i];
 		dist = sphere_intersection(ray, sphere);

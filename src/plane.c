@@ -7,6 +7,7 @@ t_plane plane_new(t_vec pos, t_vec rot, t_material mat)
 	plane.pos = pos;
 	plane.rot = rot;
 	plane.mat = mat;
+	set_axis(&plane.axis, plane.rot);
 	return (plane);
 }
 
@@ -29,7 +30,7 @@ void	check_planes(t_scene scene, t_ray ray, t_hit *hit)
 	t_plane		plane;
 
 	i = 0;
-	while (i < scene.counts[COUNT_PLANES])
+	while (i < scene.counts[PLANE_OBJ])
 	{
 		plane = scene.planes[i];
 		dist = plane_intersection(ray, plane);

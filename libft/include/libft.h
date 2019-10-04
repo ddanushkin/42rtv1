@@ -27,6 +27,7 @@
 # define SIGN(x) ((x < 0) ? -1 : (x > 0));
 # define SWAP(x, y, T) do { T SWAP = x; x = y; y = SWAP; } while (0)
 # define CLAMP(x, min, max)  (((x) > (max)) ? (max) : (((x) < (min)) ? (min) : (x)))
+# define ALLOC(t,n) (t *)malloc((n)*sizeof(t))
 
 typedef struct	s_list
 {

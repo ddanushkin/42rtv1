@@ -8,27 +8,26 @@
 # include <pthread.h>
 
 # define TITLE "RTV1"
-# define WIDTH 1024
-# define HEIGHT 720
-# define ASP_RATIO (double)WIDTH / (double)HEIGHT
-# define HWIDTH ((double)WIDTH*0.5f)
-# define HHEIGHT ((double)HEIGHT*0.5f)
-# define SDL_WINDOW_ARGS TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, 0
-# define SURFACE_LEN WIDTH * HEIGHT * 4
+# define WIDTH 512
+# define HEIGHT 512
+# define WINDOW_CONFIG TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, 0
+
 # define BLACK color_new(0, 0, 0)
 # define WHITE color_new(255, 255, 255)
 # define GREY color_new(128, 128, 128)
 # define RED color_new(255, 0, 0)
 # define GREEN color_new(0, 255, 0)
 # define BLUE color_new(0, 0, 255)
-# define PINK color_new(255, 182, 193)
-# define BROWN color_new(139, 69, 19)
+# define CYAN color_new(0, 255, 255)
+# define PINK color_new(255, 0, 127)
+# define BROWN color_new(153, 76, 0)
+# define ORANGE color_new(255, 128, 0)
 
-# define COUNT_SPHERE 0
-# define COUNT_CONE 1
-# define COUNT_PLANES 2
-# define COUNT_CYLINDER 3
-# define COUNT_LIGHT 4
+# define SPHERE_OBJ 0
+# define CONE_OBJ 1
+# define PLANE_OBJ 2
+# define CYLINDER_OBJ 3
+# define LIGHT_OBJ 4
 
 # define TRUE 1
 # define FALSE 0
@@ -40,6 +39,21 @@ typedef struct	s_color
 	int 	b;
 	int 	a;
 }				t_color;
+
+typedef struct	s_cmyk
+{
+	double 	c;
+	double 	m;
+	double 	y;
+	double 	k;
+}				t_cmyk;
+
+typedef struct	s_rgb
+{
+	double 	r;
+	double 	g;
+	double 	b;
+}				t_rgb;
 
 typedef struct	s_vec
 {
@@ -72,6 +86,8 @@ typedef struct	s_hit
 	int 		collided;
 	double 		diffuse;
 	double		specular;
+	double 		intensity;
+	t_color		res;
 }				t_hit;
 
 typedef struct	s_sphere
@@ -214,7 +230,7 @@ void		check_planes(t_scene scene, t_ray ray, t_hit *hit);
 t_cone		cone_new(t_vec pos, t_vec rot, double angle, t_material material);
 void		check_cone(t_scene scene, t_ray ray, t_hit *hit);
 
-t_light		light_new(t_vec position, t_color color, double intensity);
+t_light		light_new(t_vec position, double intensity);
 void		process_lights(t_scene scene, t_ray ray, t_hit *hit);
 
 t_cylinder	cylinder_new(t_vec pos, t_vec rot, double rad, t_material mat);

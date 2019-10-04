@@ -8,6 +8,7 @@ t_cylinder		cylinder_new(t_vec pos, t_vec rot, double rad, t_material mat)
 	cylinder.rot = rot;
 	cylinder.rad = rad;
 	cylinder.mat = mat;
+	set_axis(&cylinder.axis, cylinder.rot);
 	return (cylinder);
 }
 
@@ -47,7 +48,7 @@ void			check_cylinder(t_scene scene, t_ray ray, t_hit *hit)
 	t_cylinder	cylinder;
 
 	i = 0;
-	while (i < scene.counts[COUNT_CYLINDER])
+	while (i < scene.counts[CYLINDER_OBJ])
 	{
 		cylinder = scene.cylinders[i];
 		dist = cylinder_intersection(ray, cylinder);

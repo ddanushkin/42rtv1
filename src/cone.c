@@ -8,6 +8,7 @@ t_cone	cone_new(t_vec pos, t_vec rot, double angle, t_material material)
 	cone.rot = rot;
 	cone.angle = angle * M_PI / 180.0;
 	cone.mat = material;
+	set_axis(&cone.axis, cone.rot);
 	return (cone);
 }
 
@@ -52,7 +53,7 @@ void	check_cone(t_scene scene, t_ray ray, t_hit *hit)
 	t_cone		cone;
 
 	i = 0;
-	while (i < scene.counts[COUNT_CONE])
+	while (i < scene.counts[CONE_OBJ])
 	{
 		cone = scene.cones[i];
 		dist = cone_intersection(ray, cone);

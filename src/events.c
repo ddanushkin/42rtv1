@@ -38,13 +38,13 @@ void 	event_move(const uint8_t *keys, t_vec *pos, double speed)
 void 	event_rotate(const uint8_t *keys, t_vec *rot, double speed)
 {
 	if (keys[SDL_SCANCODE_LEFT])
-		rot->y -= speed;
+		rot->y -= 1;
 	if (keys[SDL_SCANCODE_RIGHT])
-		rot->y += speed;
+		rot->y += 1;
 	if (keys[SDL_SCANCODE_UP])
-		rot->x += speed;
+		rot->x += 1;
 	if (keys[SDL_SCANCODE_DOWN])
-		rot->x -= speed;
+		rot->x -= 1;
 }
 
 int		event_handling(t_app *app)

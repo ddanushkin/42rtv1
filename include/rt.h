@@ -164,6 +164,7 @@ typedef struct	s_app
 	t_sdl		*sdl;
 	const Uint8	*keys;
 	t_scene		*scene;
+	int 		scene_id;
 	double 		fov;
 	double 		asp_rat;
 	t_vec		pos;
@@ -238,7 +239,13 @@ double		cylinder_intersection(t_ray ray, t_cylinder	obj);
 t_vec		cylinder_normal(t_ray ray, t_hit hit, t_cylinder obj);
 void		check_cylinder(t_scene scene, t_ray ray, t_hit *hit);
 
+void		print_usage();
+void		check_pos_args(t_app *app, int argc, char *argv[]);
+void		check_rot_args(t_app *app, int argc, char *argv[]);
+void		check_scene_args(t_app *app, int argc, char *argv[]);
+
 double		calc_abc(double a, double b, double c);
 void		set_axis(t_vec *axis, t_vec rot);
+void		set_view(t_vec *axis, t_vec rot);
 t_material	mat_new(double a_0, double a_1, double exp, t_color color);
 #endif

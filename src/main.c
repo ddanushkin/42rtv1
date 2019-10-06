@@ -134,8 +134,6 @@ void	init_scene(t_app *app)
 			vec_new(0.0, 5.0, 10.0),
 			100);
 
-	app->pos = vec_new(0.0, 0.0, 5.0);
-	app->rot = vec_new(0.0, 0.0, 0.0);
 	app->redraw = TRUE;
 }
 
@@ -155,11 +153,18 @@ int		main(int argc, char *argv[])
 {
     t_app *app;
 
-    app = (t_app *)malloc(sizeof(t_app));
+    if (argc == 1)
+    {
+		print_usage();
+		exit(0);
+    }
+	app = (t_app *)malloc(sizeof(t_app));
+	check_pos_args(app, argc, argv);
+	check_rot_args(app, argc, argv);
     init_sdl(app);
 	init_app(app);
 	init_scene(app);
 	render_loop(app);
 	safe_quit(app);
-    return 0;
+    return (0);
 }

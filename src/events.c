@@ -6,7 +6,7 @@
 /*   By: ofrost-g <ofrost-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 16:11:40 by ofrost-g          #+#    #+#             */
-/*   Updated: 2019/10/07 16:13:05 by ofrost-g         ###   ########.fr       */
+/*   Updated: 2019/10/07 21:03:31 by ofrost-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	event_move(const uint8_t *keys, t_vec *pos)
 void	event_rotate(const uint8_t *keys, t_vec *rot)
 {
 	if (keys[SDL_SCANCODE_LEFT])
-		rot->y -= ROT_SPEED;
-	if (keys[SDL_SCANCODE_RIGHT])
 		rot->y += ROT_SPEED;
+	if (keys[SDL_SCANCODE_RIGHT])
+		rot->y -= ROT_SPEED;
 	if (keys[SDL_SCANCODE_UP])
 		rot->x += ROT_SPEED;
 	if (keys[SDL_SCANCODE_DOWN])

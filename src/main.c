@@ -6,7 +6,7 @@
 /*   By: ofrost-g <ofrost-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 16:15:03 by ofrost-g          #+#    #+#             */
-/*   Updated: 2019/10/07 16:15:58 by ofrost-g         ###   ########.fr       */
+/*   Updated: 2019/10/07 22:38:07 by ofrost-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		render_loop(t_app *app)
 	return (0);
 }
 
-void	safe_quit()
+void	safe_quit(void)
 {
 	SDL_Quit();
 	exit(0);
@@ -58,6 +58,6 @@ int		main(int argc, char *argv[])
 	else
 		read_config(app, argv[1]);
 	render_loop(app);
-	safe_quit();
+	safe_quit(void);
 	return (0);
 }

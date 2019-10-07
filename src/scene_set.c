@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene_0_setup.c                                    :+:      :+:    :+:   */
+/*   scene_set.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ofrost-g <ofrost-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/07 16:19:52 by ofrost-g          #+#    #+#             */
-/*   Updated: 2019/10/07 16:19:52 by ofrost-g         ###   ########.fr       */
+/*   Created: 2019/10/07 16:19:46 by ofrost-g          #+#    #+#             */
+/*   Updated: 2019/10/07 18:04:31 by ofrost-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,24 @@ void	scene_set_sphere(t_scene *scene, t_vec position, double radius)
 			radius);
 }
 
-void	scene_set_cone(t_scene *scene, t_vec position, t_vec rotation, double angle)
+void	scene_set_cone(t_scene *s, t_vec position, t_vec rotation, double angle)
 {
 	int		*c;
 
-	c = &scene->counts[0];
-	scene->cones[c[CONE_OBJ]++] = cone_new(
+	c = &s->counts[0];
+	s->cones[c[CONE_OBJ]++] = cone_new(
 			position,
 			rotation,
 			angle);
 }
 
-void	scene_set_cylinder(t_scene *scene, t_vec position, t_vec rotation, double radius)
+void	scene_set_cylinder(t_scene *s, t_vec p, t_vec rotation, double radius)
 {
 	int		*c;
 
-	c = &scene->counts[0];
-	scene->cylinders[c[CYLINDER_OBJ]++] = cylinder_new(
-			position,
+	c = &s->counts[0];
+	s->cylinders[c[CYLINDER_OBJ]++] = cylinder_new(
+			p,
 			rotation,
 			radius);
 }

@@ -1,9 +1,64 @@
-camera  42  42 42  -35 35 0
-light  -10 0  0    50
-light   5  2  14   150
-light       0 5 10  150
+camera  0  10 20  0 0 0
+light       10 6 -3  150
+light       2 6 5  15
+light       -4 6 5  15
+light       -10 6 5  15
+light       10 6 5  15
 plane       0 -5 0  0 0 0
 plane       0 0 -10  90 0 0
-sphere      0 0 0  4
-cone        -5 0 0  0 0 0  15
-cylinder    5 0 0  0 0 0  4
+sphere      -4 3 -3  3
+sphere      -3 4 -1  1
+cylinder    5 0 0  0 0 0  1
+cylinder    7 0 0  0 0 0  1
+cylinder    9 0 0  0 0 0  1
+cylinder    11 0 0  0 0 0  1
+cylinder    13 0 0  0 0 0  1
+cylinder    15 0 0  0 0 0  1
+cylinder    17 0 0  0 0 0  1
+cylinder    19 0 0  0 0 0  1
+cylinder    21 0 0  0 0 0  1
+cylinder    23 0 0  0 0 0  1
+cylinder    25 0 0  0 0 0  1
+cylinder    27 0 0  0 0 0  1
+cylinder    29 0 0  0 0 0  1
+cylinder    31 0 0  0 0 0  1
+cylinder    -5 0 0  0 0 0  1
+cylinder    -7 0 0  0 0 0  1
+cylinder    -9 0 0  0 0 0  1
+cylinder    -11 0 0  0 0 0  1
+cylinder    -13 0 0  0 0 0  1
+cylinder    -15 0 0  0 0 0  1
+cylinder    -17 0 0  0 0 0  1
+cylinder    -19 0 0  0 0 0  1
+cylinder    -21 0 0  0 0 0  1
+cylinder    -23 0 0  0 0 0  1
+cylinder    -25 0 0  0 0 0  1
+cylinder    -27 0 0  0 0 0  1
+cylinder    -29 0 0  0 0 0  1
+cylinder    -31 0 0  0 0 0  1
+cylinder    0 0 0  0 0 90  1
+cylinder    0 2 0  0 0 90  1
+cylinder    0 -2 0  0 0 90  1
+cylinder    0 -4 0  0 0 90  1
+cylinder    0 12 0  0 0 90  1
+cylinder    0 14 0  0 0 90  1
+cylinder    0 16 0  0 0 90  1
+cylinder    0 18 0  0 0 90  1
+cylinder    0 20 0  0 0 90  1
+cylinder    0 22 0  0 0 90  1
+cylinder    0 24 0  0 0 90  1
+cylinder    0 26 0  0 0 90  1
+cylinder    0 28 0  0 0 90  1
+cylinder    0 30 0  0 0 90  1
+cylinder    0 32 0  0 0 90  1
+cylinder    0 34 0  0 0 90  1
+cylinder    0 36 0  0 0 90  1
+cylinder    0 16 0  0 0 90  1
+cylinder    0 16 0  0 0 90  1
+cylinder    0 16 0  0 0 90  1
+cylinder    0 16 0  0 0 90  1
+cylinder    0 16 0  0 0 90  1
+cylinder    0 16 0  0 0 90  1
+cylinder    0 16 0  0 0 90  1
+cylinder    0 16 0  0 0 90  1
+cylinder    0 16 0  0 0 90  1

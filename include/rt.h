@@ -189,6 +189,7 @@ void			app_set_position(t_app *app, int x, int y, int z);
 void			app_set_rotation(t_app *app, int x, int y, int z);
 
 t_vec			ray_direction(t_app *app, int x, int y);
+void			read_config(t_app *app, char *path);
 
 int				event_handling(t_app *app);
 

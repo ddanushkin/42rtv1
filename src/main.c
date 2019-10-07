@@ -41,7 +41,7 @@ int		render_loop(t_app *app)
 	return (0);
 }
 
-void	safe_quit()
+void	safe_quit(t_app *app)
 {
 	SDL_Quit();
 	exit(0);

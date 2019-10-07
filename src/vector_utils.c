@@ -1,6 +1,6 @@
 #include "rt.h"
 
-double 	vec_length(t_vec v)
+double	vec_length(t_vec v)
 {
 	return (sqrt(vec_dot(v, v)));
 }

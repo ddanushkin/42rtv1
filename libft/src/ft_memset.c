@@ -24,7 +24,6 @@ void	*ft_memset(void *b, int c, size_t len)
 		dst_big++;
 		len -= 8;
 	}
-
 	dst_small = (void *)dst_big;
 	while (len > 0)
 	{

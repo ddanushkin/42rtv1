@@ -1,16 +1,17 @@
 #ifndef RT_H
-#define RT_H
+# define RT_H
 
 # include "math.h"
 # include "libft.h"
-# include <stdio.h> /* TODO: Delete before finish project */
 # include <SDL.h>
 # include <pthread.h>
 
 # define TITLE "RTV1"
 # define WIDTH 512
 # define HEIGHT 512
-# define WINDOW_CONFIG TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, 0
+
+# define POS_SPEED 1.0
+# define ROT_SPEED 2.0
 
 # define BLACK color_new(0, 0, 0)
 # define WHITE color_new(255, 255, 255)
@@ -34,26 +35,11 @@
 
 typedef struct	s_color
 {
-	int 	r;
-	int 	g;
-	int 	b;
-	int 	a;
+	int		r;
+	int		g;
+	int		b;
+	int		a;
 }				t_color;
-
-typedef struct	s_cmyk
-{
-	double 	c;
-	double 	m;
-	double 	y;
-	double 	k;
-}				t_cmyk;
-
-typedef struct	s_rgb
-{
-	double 	r;
-	double 	g;
-	double 	b;
-}				t_rgb;
 
 typedef struct	s_vec
 {
@@ -66,7 +52,6 @@ typedef struct	s_ray
 {
 	t_vec		o;
 	t_vec		d;
-	t_vec		point_at;
 }				t_ray;
 
 typedef struct	s_material
@@ -74,20 +59,18 @@ typedef struct	s_material
 	t_color		c;
 	double		a0;
 	double		a1;
-	double 		exp;
+	double		exp;
 }				t_material;
 
 typedef struct	s_hit
 {
 	t_vec		p;
 	t_vec		n;
-	double 		d;
+	double		d;
 	t_material	m;
-	int 		collided;
-	double 		diffuse;
+	int			collided;
+	double		diffuse;
 	double		specular;
-	double 		intensity;
-	t_color		res;
 }				t_hit;
 
 typedef struct	s_sphere
@@ -119,27 +102,15 @@ typedef struct	s_cylinder
 	t_vec		pos;
 	t_vec		axis;
 	t_vec		rot;
-	double 		rad;
-	double 		height;
+	double		rad;
 	t_material	mat;
 }				t_cylinder;
 
 typedef struct	s_light
 {
 	t_vec		position;
-	t_vec		direction;
 	double		intensity;
-	t_material	mat;
 }				t_light;
-
-typedef struct	s_camera
-{
-	t_vec		position;
-	t_vec		dir;
-	t_vec		right;
-	t_vec		down;
-	t_vec		rotation;
-}				t_camera;
 
 typedef struct	s_sdl
 {
@@ -154,98 +125,114 @@ typedef struct	s_scene
 	t_cone		*cones;
 	t_plane		*planes;
 	t_cylinder	*cylinders;
-	int 		counts[5];
-	t_light		*light;
-	t_camera	camera;
+	int			counts[5];
+	t_light		*lights;
 }				t_scene;
 
 typedef struct	s_app
 {
 	t_sdl		*sdl;
 	const Uint8	*keys;
-	t_scene		*scene;
-	int 		scene_id;
-	double 		fov;
-	double 		asp_rat;
+	t_scene		*scenes;
+	int			scene_id;
+	double		fov;
+	double		asp_rat;
 	t_vec		pos;
 	t_vec		rot;
-	int 		redraw;
+	int			redraw;
 }				t_app;
 
 typedef struct	s_thread_data
 {
-	pthread_t 		tr;
-	t_app			*app;
-	int 			scene_id;
-	int 			sx;
-	int 			ex;
-	int 			sy;
-	int 			ey;
+	pthread_t	tr;
+	t_app		*app;
+	int			scene_id;
+	int			sx;
+	int			ex;
+	int			sy;
+	int			ey;
 }				t_thread_data;
 
-void		set_pixel(SDL_Surface *surface, int x, int y, t_color c);
-t_color		get_pixel(SDL_Surface *surface, int x, int y);
+void			set_pixel(SDL_Surface *surface, int x, int y, t_color c);
+t_color			get_pixel(SDL_Surface *surface, int x, int y);
 
-double 		vec_length(t_vec v);
-t_vec		vec_normalize(t_vec v);
-double		vec_dot(t_vec v1, t_vec v2);
-t_vec		vec_cross(t_vec v1, t_vec v2);
-t_vec		vec_add(t_vec v1, t_vec v2);
-t_vec		vec_new(double x, double y, double z);
-t_vec		vec_sub(t_vec v1, t_vec v2);
-t_vec		vec_mul_by(t_vec v, double k);
-t_vec		vec_div_by(t_vec v, double k);
-t_vec		vec_invert(t_vec v);
-t_vec		vec_point_at(t_ray ray, double length);
-void		vec_add_ptr(t_vec *ov, t_vec v2);
-void		vec_sub_ptr(t_vec *ov, t_vec v2);
-void		vec_mul_by_ptr(t_vec *ov, double k);
-void		vec_div_by_ptr(t_vec *ov, double k);
+double			vec_length(t_vec v);
+t_vec			vec_normalize(t_vec v);
+double			vec_dot(t_vec v1, t_vec v2);
+t_vec			vec_cross(t_vec v1, t_vec v2);
+t_vec			vec_add(t_vec v1, t_vec v2);
+t_vec			vec_new(double x, double y, double z);
+t_vec			vec_sub(t_vec v1, t_vec v2);
+t_vec			vec_mul_by(t_vec v, double k);
+t_vec			vec_div_by(t_vec v, double k);
+t_vec			vec_invert(t_vec v);
+t_vec			vec_point_at(t_ray ray, double length);
 
-void		color_set(t_color *c, int r, int g, int b);
-t_color		color_new(int r, int g, int b);
-t_color 	color_add(t_color c, double k);
-t_color		color_sum(t_color c1, t_color c2);
-t_color		color_mul(t_color c1, t_color c2);
-t_color		color_mul_by(t_color c, double k);
-t_color		color_mix(t_color c1, t_color c2, double amount);
-void		color_clamp(t_color *c);
+void			color_set(t_color *c, int r, int g, int b);
+t_color			color_new(int r, int g, int b);
+t_color			color_add(t_color c, double k);
+t_color			color_sum(t_color c1, t_color c2);
+t_color			color_mul(t_color c1, t_color c2);
+t_color			color_mul_by(t_color c, double k);
+t_color			color_mix(t_color c1, t_color c2, double amount);
+void			color_clamp(t_color *c);
 
-void		set_camera(t_camera *camera, t_vec pos, t_vec look_at);
+void			init_app(t_app *app);
+int				init_sdl(t_app *app);
+void			init_scenes(t_app *app);
+void			init_scene_0(t_app *app);
+void			init_scene_1(t_app *app);
+void			init_scene_2(t_app *app);
+void			init_scene_3(t_app *app);
+void			init_scene_4(t_app *app);
 
-t_vec		ray_direction(t_app *app, int x, int y);
+void			app_set_position(t_app *app, int x, int y, int z);
+void			app_set_rotation(t_app *app, int x, int y, int z);
 
-int			event_handling(t_app *app);
+t_vec			ray_direction(t_app *app, int x, int y);
 
-void		trace_rays(t_app *app, int scene_id);
+int				event_handling(t_app *app);
 
-double		sphere_intersection(t_ray ray, t_sphere sphere);
-t_vec		sphere_normal(t_vec center, t_vec p);
-t_sphere	sphere_new(t_vec pos, double rad, t_material mat);
-void		check_spheres(t_scene scene, t_ray ray, t_hit *hit);
+void			trace_rays(t_app *app);
 
-double		plane_intersection(t_ray ray, t_plane plane);
-t_plane		plane_new(t_vec pos, t_vec rot, t_material mat);
-void		check_planes(t_scene scene, t_ray ray, t_hit *hit);
+void			event_redraw(t_app *app, const uint8_t *keys);
+void			event_move(const uint8_t *keys, t_vec *pos);
+void			event_rotate(const uint8_t *keys, t_vec *rot);
+void			event_change_scene(t_app *app, const uint8_t *keys);
 
-t_cone		cone_new(t_vec pos, t_vec rot, double angle, t_material material);
-void		check_cone(t_scene scene, t_ray ray, t_hit *hit);
+double			sphere_intersection(t_ray ray, t_sphere sphere);
+t_vec			sphere_normal(t_vec center, t_vec p);
+t_sphere		sphere_new(t_vec pos, double rad, t_material mat);
+void			check_spheres(t_scene scene, t_ray ray, t_hit *hit);
 
-t_light		light_new(t_vec position, double intensity);
-void		process_lights(t_scene scene, t_ray ray, t_hit *hit);
+double			plane_intersection(t_ray ray, t_plane plane);
+t_plane			plane_new(t_vec pos, t_vec rot, t_material mat);
+void			check_planes(t_scene scene, t_ray ray, t_hit *hit);
 
-t_cylinder	cylinder_new(t_vec pos, t_vec rot, double rad, t_material mat);
-double		cylinder_intersection(t_ray ray, t_cylinder	obj);
-t_vec		cylinder_normal(t_ray ray, t_hit hit, t_cylinder obj);
-void		check_cylinder(t_scene scene, t_ray ray, t_hit *hit);
+t_cone			cone_new(t_vec pos, t_vec rot, double angle, t_material mat);
+void			check_cone(t_scene scene, t_ray ray, t_hit *hit);
 
-void		print_usage();
-void		check_pos_args(t_app *app, int argc, char *argv[]);
-void		check_rot_args(t_app *app, int argc, char *argv[]);
-void		check_scene_args(t_app *app, int argc, char *argv[]);
+t_light			light_new(t_vec position, double intensity);
+void			process_lights(t_scene scene, t_ray ray, t_hit *hit);
 
-double		calc_abc(double a, double b, double c);
-void		set_axis(t_vec *axis, t_vec rot);
-void		set_view(t_vec *axis, t_vec rot);
-t_material	mat_new(double a_0, double a_1, double exp, t_color color);
+t_cylinder		cylinder_new(t_vec pos, t_vec rot, double rad, t_material mat);
+double			cylinder_intersection(t_ray ray, t_cylinder	obj);
+t_vec			cylinder_normal(t_ray ray, t_hit hit, t_cylinder obj);
+void			check_cylinder(t_scene scene, t_ray ray, t_hit *hit);
+
+void			scene_add_planes(t_scene *scene, int number);
+void			scene_add_spheres(t_scene *scene, int number);
+void			scene_add_cones(t_scene *scene, int number);
+void			scene_add_cylinders(t_scene *scene, int number);
+void			scene_add_lights(t_scene *scene, int number);
+
+void			print_usage();
+void			args_check_pos(t_app *app, int argc, char **argv);
+void			args_check_rot(t_app *app, int argc, char **argv);
+void			args_check_scene(t_app *app, int argc, char **argv);
+
+double			calc_abc(double a, double b, double c);
+void			set_axis(t_vec *axis, t_vec rot);
+void			set_view(t_vec *axis, t_vec rot);
+t_material		mat_new(double a_0, double a_1, double exp, t_color color);
 #endif

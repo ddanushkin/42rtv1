@@ -40,7 +40,7 @@ static void		cleanup(char **split, size_t cur)
 	ft_strdel(split);
 }
 
-int		ft_countwords(char *str, char sep)
+int				ft_countwords(char *str, char sep)
 {
 	int result;
 	int i;

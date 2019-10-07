@@ -51,21 +51,16 @@ void	process_lights(t_scene scene, t_ray ray, t_hit *hit)
 	t_color		tmp;
 
 	i = 0;
-	hit->diffuse = 0;
-	hit->specular = 0;
+	hit->diffuse = 0.1;
+	hit->specular = 0.0;
 	while (i < scene.counts[LIGHT_OBJ])
 	{
-		if (i == 3)
-		{
-			i++;
-			continue;
-		}
-		light = scene.light[i];
+		light = scene.lights[i];
 		calculate_light(scene, light, hit, ray);
 		i++;
 	}
 	hit->m.c = color_mul_by(hit->m.c, hit->diffuse * hit->m.a0);
-	tmp = color_mul_by(hit->m.c, hit->specular * hit->m.a1);
+	tmp = color_mul_by(WHITE, hit->specular * hit->m.a1);
 	hit->m.c = color_sum(hit->m.c, tmp);
 	color_clamp(&hit->m.c);
 }

@@ -7,7 +7,7 @@ t_vec	vec_add(t_vec v1, t_vec v2)
 	new_v.x = v1.x + v2.x;
 	new_v.y = v1.y + v2.y;
 	new_v.z = v1.z + v2.z;
-	return	(new_v);
+	return (new_v);
 }
 
 t_vec	vec_sub(t_vec v1, t_vec v2)
@@ -17,7 +17,7 @@ t_vec	vec_sub(t_vec v1, t_vec v2)
 	new_v.x = v1.x - v2.x;
 	new_v.y = v1.y - v2.y;
 	new_v.z = v1.z - v2.z;
-	return	(new_v);
+	return (new_v);
 }
 
 t_vec	vec_mul_by(t_vec v, double k)
@@ -27,7 +27,7 @@ t_vec	vec_mul_by(t_vec v, double k)
 	new_v.x = v.x * k;
 	new_v.y = v.y * k;
 	new_v.z = v.z * k;
-	return	(new_v);
+	return (new_v);
 }
 
 t_vec	vec_div_by(t_vec v, double k)
@@ -37,5 +37,5 @@ t_vec	vec_div_by(t_vec v, double k)
 	new_v.x = v.x / k;
 	new_v.y = v.y / k;
 	new_v.z = v.z / k;
-	return	(new_v);
+	return (new_v);
 }

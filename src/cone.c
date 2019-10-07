@@ -12,14 +12,14 @@
 
 #include "rt.h"
 
-t_cone	cone_new(t_vec pos, t_vec rot, double angle, t_material material)
+t_cone	cone_new(t_vec pos, t_vec rot, double angle)
 {
 	t_cone	cone;
 
 	cone.pos = pos;
 	cone.rot = rot;
 	cone.angle = angle * M_PI / 180.0;
-	cone.mat = material;
+	cone.mat = mat_new(0.8, 0.8, 50, PALETTE_C1);
 	set_axis(&cone.axis, cone.rot);
 	return (cone);
 }

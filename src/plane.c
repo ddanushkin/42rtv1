@@ -12,13 +12,13 @@
 
 #include "rt.h"
 
-t_plane	plane_new(t_vec pos, t_vec rot, t_material mat)
+t_plane	plane_new(t_vec pos, t_vec rot)
 {
 	t_plane	plane;
 
 	plane.pos = pos;
 	plane.rot = rot;
-	plane.mat = mat;
+	plane.mat = mat_new(0.8, 0.8, 50, PALETTE_C5);
 	set_axis(&plane.axis, plane.rot);
 	return (plane);
 }

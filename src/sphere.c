@@ -12,13 +12,13 @@
 
 #include "rt.h"
 
-t_sphere		sphere_new(t_vec pos, double rad, t_material mat)
+t_sphere		sphere_new(t_vec pos, double rad)
 {
 	t_sphere	sphere;
 
 	sphere.pos = pos;
 	sphere.rad = rad;
-	sphere.mat = mat;
+	sphere.mat = mat_new(0.8, 0.8, 50, PALETTE_C3);
 	return (sphere);
 }
 

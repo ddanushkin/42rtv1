@@ -24,6 +24,12 @@
 # define BROWN color_new(153, 76, 0)
 # define ORANGE color_new(255, 128, 0)
 
+# define PALETTE_C1 color_new(198, 65, 145)
+# define PALETTE_C2 color_new(0, 191, 178)
+# define PALETTE_C3 color_new(240, 243, 189)
+# define PALETTE_C4 color_new(2, 127, 144)
+# define PALETTE_C5 color_new(26, 94, 99)
+
 # define SPHERE_OBJ 0
 # define CONE_OBJ 1
 # define PLANE_OBJ 2
@@ -154,27 +160,20 @@ typedef struct	s_thread_data
 }				t_thread_data;
 
 void			set_pixel(SDL_Surface *surface, int x, int y, t_color c);
-t_color			get_pixel(SDL_Surface *surface, int x, int y);
 
 double			vec_length(t_vec v);
 t_vec			vec_normalize(t_vec v);
 double			vec_dot(t_vec v1, t_vec v2);
-t_vec			vec_cross(t_vec v1, t_vec v2);
 t_vec			vec_add(t_vec v1, t_vec v2);
 t_vec			vec_new(double x, double y, double z);
 t_vec			vec_sub(t_vec v1, t_vec v2);
 t_vec			vec_mul_by(t_vec v, double k);
-t_vec			vec_div_by(t_vec v, double k);
 t_vec			vec_invert(t_vec v);
 t_vec			vec_point_at(t_ray ray, double length);
 
-void			color_set(t_color *c, int r, int g, int b);
 t_color			color_new(int r, int g, int b);
-t_color			color_add(t_color c, double k);
 t_color			color_sum(t_color c1, t_color c2);
-t_color			color_mul(t_color c1, t_color c2);
 t_color			color_mul_by(t_color c, double k);
-t_color			color_mix(t_color c1, t_color c2, double amount);
 void			color_clamp(t_color *c);
 
 void			init_app(t_app *app);
@@ -202,20 +201,20 @@ void			event_change_scene(t_app *app, const uint8_t *keys);
 
 double			sphere_intersection(t_ray ray, t_sphere sphere);
 t_vec			sphere_normal(t_vec center, t_vec p);
-t_sphere		sphere_new(t_vec pos, double rad, t_material mat);
+t_sphere		sphere_new(t_vec pos, double rad);
 void			check_spheres(t_scene scene, t_ray ray, t_hit *hit);
 
 double			plane_intersection(t_ray ray, t_plane plane);
-t_plane			plane_new(t_vec pos, t_vec rot, t_material mat);
+t_plane			plane_new(t_vec pos, t_vec rot);
 void			check_planes(t_scene scene, t_ray ray, t_hit *hit);
 
-t_cone			cone_new(t_vec pos, t_vec rot, double angle, t_material mat);
+t_cone			cone_new(t_vec pos, t_vec rot, double angle);
 void			check_cone(t_scene scene, t_ray ray, t_hit *hit);
 
 t_light			light_new(t_vec position, double intensity);
 void			process_lights(t_scene scene, t_ray ray, t_hit *hit);
 
-t_cylinder		cylinder_new(t_vec pos, t_vec rot, double rad, t_material mat);
+t_cylinder		cylinder_new(t_vec pos, t_vec rot, double rad);
 double			cylinder_intersection(t_ray ray, t_cylinder	obj);
 t_vec			cylinder_normal(t_ray ray, t_hit hit, t_cylinder obj);
 void			check_cylinder(t_scene scene, t_ray ray, t_hit *hit);
@@ -226,10 +225,8 @@ void			scene_add_cones(t_scene *scene, int number);
 void			scene_add_cylinders(t_scene *scene, int number);
 void			scene_add_lights(t_scene *scene, int number);
 
-void			print_usage();
 void			args_check_pos(t_app *app, int argc, char **argv);
 void			args_check_rot(t_app *app, int argc, char **argv);
-void			args_check_scene(t_app *app, int argc, char **argv);
 
 double			calc_abc(double a, double b, double c);
 void			set_axis(t_vec *axis, t_vec rot);

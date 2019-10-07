@@ -52,8 +52,6 @@ int		main(int argc, char *argv[])
 	t_app	*app;
 
 	app = (t_app *)malloc(sizeof(t_app));
-	args_check_pos(app, argc, argv);
-	args_check_rot(app, argc, argv);
 	init_sdl(app);
 	init_app(app);
 	init_scenes(app);

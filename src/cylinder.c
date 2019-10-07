@@ -12,14 +12,14 @@
 
 #include "rt.h"
 
-t_cylinder		cylinder_new(t_vec pos, t_vec rot, double rad, t_material mat)
+t_cylinder		cylinder_new(t_vec pos, t_vec rot, double rad)
 {
 	t_cylinder cylinder;
 
 	cylinder.pos = pos;
 	cylinder.rot = rot;
 	cylinder.rad = rad;
-	cylinder.mat = mat;
+	cylinder.mat = mat_new(0.8, 0.8, 50, PALETTE_C2);
 	set_axis(&cylinder.axis, cylinder.rot);
 	return (cylinder);
 }

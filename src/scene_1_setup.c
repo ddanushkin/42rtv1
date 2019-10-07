@@ -12,7 +12,7 @@
 
 #include "rt.h"
 
-void	scene_1_set_spheres(t_scene	*scene)
+void	scene_1_set_spheres(t_scene *scene)
 {
 	int		*c;
 

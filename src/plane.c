@@ -12,7 +12,7 @@
 
 #include "rt.h"
 
-t_plane plane_new(t_vec pos, t_vec rot, t_material mat)
+t_plane	plane_new(t_vec pos, t_vec rot, t_material mat)
 {
 	t_plane	plane;
 

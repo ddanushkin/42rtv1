@@ -14,9 +14,8 @@
 
 t_vec	ray_direction(t_app *app, int x, int y)
 {
-	t_vec v;
-	t_vec tmp;
-	double angle;
+	t_vec	v;
+	double	angle;
 
 	angle = tanf(M_PI * 0.5 * app->fov / 180.0);
 	v.x = 2.0 * ((double)x / (WIDTH - 1)) - 1.0;

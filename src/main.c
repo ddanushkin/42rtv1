@@ -41,7 +41,7 @@ int		render_loop(t_app *app)
 	return (0);
 }
 
-void	safe_quit(t_app *app)
+void	safe_quit()
 {
 	SDL_Quit();
 	exit(0);
@@ -58,6 +58,6 @@ int		main(int argc, char *argv[])
 	init_app(app);
 	init_scenes(app);
 	render_loop(app);
-	safe_quit(app);
+	safe_quit();
 	return (0);
 }

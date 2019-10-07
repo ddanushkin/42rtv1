@@ -12,7 +12,7 @@
 
 #include "rt.h"
 
-void	scene_0_set_spheres(t_scene	*scene)
+void	scene_0_set_spheres(t_scene *scene)
 {
 	int		*c;
 
@@ -32,7 +32,7 @@ void	scene_0_set_spheres(t_scene	*scene)
 			mat_new(0.8, 1.8, 10, BLUE));
 }
 
-void	scene_0_set_cones(t_scene	*scene)
+void	scene_0_set_cones(t_scene *scene)
 {
 	int		*c;
 
@@ -60,7 +60,7 @@ void	scene_0_set_cones(t_scene	*scene)
 			mat_new(1.0, 1.0, 10, PINK));
 }
 
-void	scene_0_set_planes(t_scene	*scene)
+void	scene_0_set_planes(t_scene *scene)
 {
 	int		*c;
 
@@ -76,7 +76,7 @@ void	scene_0_set_planes(t_scene	*scene)
 			mat_new(0.8, 0.8, 10, WHITE));
 }
 
-void	scene_0_set_cylinders(t_scene	*scene)
+void	scene_0_set_cylinders(t_scene *scene)
 {
 	int		*c;
 

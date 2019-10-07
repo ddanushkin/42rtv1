@@ -12,7 +12,7 @@
 
 #include "rt.h"
 
-void	scene_2_set_cones(t_scene	*scene)
+void	scene_2_set_cones(t_scene *scene)
 {
 	int		*c;
 

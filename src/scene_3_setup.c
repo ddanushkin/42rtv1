@@ -12,7 +12,7 @@
 
 #include "rt.h"
 
-void	scene_3_set_planes(t_scene	*scene)
+void	scene_3_set_planes(t_scene *scene)
 {
 	int		*c;
 

@@ -36,20 +36,6 @@ void	event_redraw(t_app *app, const uint8_t *keys)
 	}
 }
 
-void	event_change_scene(t_app *app, const uint8_t *keys)
-{
-	if (keys[SDL_SCANCODE_0])
-		app->scene_id = 0;
-	if (keys[SDL_SCANCODE_1])
-		app->scene_id = 1;
-	if (keys[SDL_SCANCODE_2])
-		app->scene_id = 2;
-	if (keys[SDL_SCANCODE_3])
-		app->scene_id = 3;
-	if (keys[SDL_SCANCODE_4])
-		app->scene_id = 4;
-}
-
 void	event_move(const uint8_t *keys, t_vec *pos)
 {
 	if (keys[SDL_SCANCODE_W])

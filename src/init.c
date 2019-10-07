@@ -19,7 +19,7 @@ void	init_app(t_app *app)
 	app->asp_rat = (double)WIDTH / (double)HEIGHT;
 	app->redraw = TRUE;
 	app->scenes = (t_scene *)malloc(sizeof(t_scene) * 10);
-	app->scene_id = 0;
+	ft_memset(app->scenes->counts, 0, sizeof(int[5]));
 }
 
 int		init_sdl(t_app *app)
@@ -35,13 +35,4 @@ int		init_sdl(t_app *app)
 			0);
 	app->sdl->surface = SDL_GetWindowSurface(app->sdl->window);
 	return (0);
-}
-
-void	init_scenes(t_app *app)
-{
-	init_scene_0(app);
-	init_scene_1(app);
-	init_scene_2(app);
-	init_scene_3(app);
-	init_scene_4(app);
 }

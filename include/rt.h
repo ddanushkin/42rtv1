@@ -140,7 +140,6 @@ typedef struct	s_app
 	t_sdl		*sdl;
 	const Uint8	*keys;
 	t_scene		*scenes;
-	int			scene_id;
 	double		fov;
 	double		asp_rat;
 	t_vec		pos;
@@ -152,12 +151,13 @@ typedef struct	s_thread_data
 {
 	pthread_t	tr;
 	t_app		*app;
-	int			scene_id;
 	int			sx;
 	int			ex;
 	int			sy;
 	int			ey;
 }				t_thread_data;
+
+void			safe_quit();
 
 void			set_pixel(SDL_Surface *surface, int x, int y, t_color c);
 
@@ -178,18 +178,12 @@ void			color_clamp(t_color *c);
 
 void			init_app(t_app *app);
 int				init_sdl(t_app *app);
-void			init_scenes(t_app *app);
-void			init_scene_0(t_app *app);
-void			init_scene_1(t_app *app);
-void			init_scene_2(t_app *app);
-void			init_scene_3(t_app *app);
-void			init_scene_4(t_app *app);
 
-void			app_set_position(t_app *app, int x, int y, int z);
-void			app_set_rotation(t_app *app, int x, int y, int z);
+void	app_set_camera(t_app *app, t_vec pos, t_vec rot);
 
 t_vec			ray_direction(t_app *app, int x, int y);
 void			read_config(t_app *app, char *path);
+int				num_elem(char **tab);
 
 int				event_handling(t_app *app);
 
@@ -226,8 +220,16 @@ void			scene_add_cones(t_scene *scene, int number);
 void			scene_add_cylinders(t_scene *scene, int number);
 void			scene_add_lights(t_scene *scene, int number);
 
-void			args_check_pos(t_app *app, int argc, char **argv);
-void			args_check_rot(t_app *app, int argc, char **argv);
+void			scene_set_sphere(t_scene *scene, t_vec position,
+								double radius);
+void			scene_set_cone(t_scene *scene, t_vec position,
+								t_vec rotation, double angle);
+void			scene_set_cylinder(t_scene *scene, t_vec position,
+								t_vec rotation, double radius);
+void			scene_set_plane(t_scene *scene, t_vec position,
+								t_vec rotation);
+void			scene_set_light(t_scene *scene, t_vec position,
+								double intensity);
 
 double			calc_abc(double a, double b, double c);
 void			set_axis(t_vec *axis, t_vec rot);

@@ -24,7 +24,6 @@ int		event_handling(t_app *app)
 		return (0);
 	event_move(keys, &app->pos);
 	event_rotate(keys, &app->rot);
-	event_change_scene(app, keys);
 	event_redraw(app, keys);
 	return (1);
 }
@@ -41,7 +40,7 @@ int		render_loop(t_app *app)
 	return (0);
 }
 
-void	safe_quit(t_app *app)
+void	safe_quit()
 {
 	SDL_Quit();
 	exit(0);
@@ -54,7 +53,10 @@ int		main(int argc, char *argv[])
 	app = (t_app *)malloc(sizeof(t_app));
 	init_sdl(app);
 	init_app(app);
-	init_scenes(app);
+	if (argc == 1)
+		read_config(app, "scenes/0.scene");
+	else
+		read_config(app, argv[1]);
 	render_loop(app);
 	safe_quit();
 	return (0);

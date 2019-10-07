@@ -76,3 +76,15 @@ double	calc_abc(double a, double b, double c)
 		return (INFINITY);
 	return (t1);
 }
+
+int		num_elem(char **tab)
+{
+	int		count;
+
+	count = 0;
+	while (tab[count] != NULL)
+	{
+		count++;
+	}
+	return (count);
+}

@@ -1,0 +1,9 @@
+camera  42  42 42  -35 35 0
+light  -10 0  0    50
+light   5  2  14   150
+light       0 5 10  150
+plane       0 -5 0  0 0 0
+plane       0 0 -10  90 0 0
+sphere      0 0 0  4
+cone        -5 0 0  0 0 0  15
+cylinder    5 0 0  0 0 0  4

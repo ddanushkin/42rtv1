@@ -46,7 +46,7 @@ void	calculate_light(t_scene scene, t_light light, t_hit *hit, t_ray ray)
 	check_cone(scene, shadow_ray, &shadow_hit);
 	if (!shadow_hit.collided || shadow_hit.d > light_dist)
 	{
-		light.intensity /= 4.0 * M_PI * pow(light_dist, 2.0);
+		light.intensity /= M_PI * pow(light_dist, 2.0);
 		hit->diffuse += MAX(0.0, vec_dot(light_dir, hit->n))
 						* light.intensity;
 		hit->specular += pow(MAX(0.0,

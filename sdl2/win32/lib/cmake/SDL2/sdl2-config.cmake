@@ -1,4 +1,4 @@
-# sdl2 cmake project-config input for ./configure scripts
+# sdl2 cmake project-0.scene input for ./configure scripts
 
 set(prefix "/opt/local/x86_64-w64-mingw32") 
 set(exec_prefix "${prefix}")

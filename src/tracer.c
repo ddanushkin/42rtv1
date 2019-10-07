@@ -28,7 +28,7 @@ void	trace_ray(t_app *app, int x, int y)
 	t_hit	hit;
 	t_scene	scene;
 
-	scene = app->scenes[app->scene_id];
+	scene = *app->scenes;
 	ray.o = app->pos;
 	ray.d = ray_direction(app, x, y);
 	hit_objects(scene, ray, &hit);

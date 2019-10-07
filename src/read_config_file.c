@@ -25,9 +25,8 @@ void	parse_data(t_app *app, char **d)
 				vec_new(ft_atoi(d[1]), ft_atoi(d[2]), ft_atoi(d[3])),
 				vec_new(ft_atoi(d[4]), ft_atoi(d[5]), ft_atoi(d[6])));
 	else if (ft_strequ(d[0], "light"))
-		scene_set_light(app->scenes,
-				vec_new(ft_atoi(d[1]), ft_atoi(d[2]), ft_atoi(d[3])),
-				ft_atoi(d[4]));
+		scene_set_light(app->scenes, vec_new(ft_atoi(d[1]), ft_atoi(d[2]),
+				ft_atoi(d[3])), ft_atoi(d[4]));
 }
 
 void	parse_config(t_app *app, char *path)
@@ -51,7 +50,7 @@ void	parse_config(t_app *app, char *path)
 	}
 }
 
-void	scene_alloc(t_scene *scene)
+void	scene_alloc(t_app *app, t_scene *scene)
 {
 	scene_add_spheres(
 			scene,
@@ -68,6 +67,7 @@ void	scene_alloc(t_scene *scene)
 	scene_add_lights(
 			scene,
 			scene->counts[LIGHT_OBJ]);
+	ft_memset(app->scenes->counts, 0, sizeof(int[5]));
 }
 
 int		check_draft(char **draft_obj, t_app *app)
@@ -112,7 +112,6 @@ void	read_config(t_app *app, char *path)
 		ft_splitdel(&draft_obj);
 	}
 	close(fd);
-	scene_alloc(app->scenes);
-	ft_memset(app->scenes->counts, 0, sizeof(int[5]));
+	scene_alloc(app, app->scenes);
 	parse_config(app, path);
 }

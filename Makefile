@@ -23,16 +23,12 @@ SRC_LIST =	app.c \
 			cone.c \
             init.c \
             material.c \
-            process_args.c \
-            scene_1_setup.c \
-            scene_4_setup.c \
             tracer.c \
             vector_math.c \
            	cylinder.c \
            	light.c \
            	pixel.c \
            	ray.c \
-           	scene_2_setup.c \
            	scene_add.c \
            	utils.c \
            	vector_utils.c \
@@ -40,8 +36,6 @@ SRC_LIST =	app.c \
            	events.c \
            	main.c \
            	plane.c \
-           	scene_0_setup.c \
-           	scene_3_setup.c \
            	sphere.c \
            	vector.c
 

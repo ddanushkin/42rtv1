@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   light.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ofrost-g <ofrost-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/07 16:13:39 by ofrost-g          #+#    #+#             */
+/*   Updated: 2019/10/07 16:14:36 by ofrost-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 
 t_vec	reflect(t_vec i, t_vec n)
@@ -22,10 +34,9 @@ void	calculate_light(t_scene scene, t_light light, t_hit *hit, t_ray ray)
 	t_hit	shadow_hit;
 
 	light_dir = vec_normalize(vec_sub(light.position, hit->p));
-	light_dist = sqrt(
-			pow((light.position.x - hit->p.x), 2.0) +
+	light_dist = sqrt(pow((light.position.x - hit->p.x), 2.0) +
 			pow((light.position.y - hit->p.y), 2.0) +
-			pow((light.position.z - hit->p.z), 2.0)) ;
+			pow((light.position.z - hit->p.z), 2.0));
 	shadow_ray.o = vec_add(hit->p, vec_mul_by(hit->n, 0.1));
 	shadow_ray.d = light_dir;
 	shadow_hit.d = INFINITY;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cone.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ofrost-g <ofrost-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/07 16:08:03 by ofrost-g          #+#    #+#             */
+/*   Updated: 2019/10/07 16:08:34 by ofrost-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 
 t_cone	cone_new(t_vec pos, t_vec rot, double angle, t_material material)
@@ -18,13 +30,14 @@ double	cone_intersection(t_ray ray, t_cone obj)
 	double	a;
 	double	b;
 	double	c;
-	double 	k;
+	double	k;
 
 	oc = vec_sub(ray.o, obj.pos);
 	k = tan(obj.angle);
 	k = 1.0 + k * k;
 	a = vec_dot(ray.d, ray.d) - k * pow(vec_dot(ray.d, obj.axis), 2);
-	b = (vec_dot(ray.d, oc) - k * vec_dot(ray.d, obj.axis) * vec_dot(oc, obj.axis)) * 2.0;
+	b = (vec_dot(ray.d, oc) - k * vec_dot(ray.d, obj.axis) *
+			vec_dot(oc, obj.axis)) * 2.0;
 	c = vec_dot(oc, oc) - k * pow(vec_dot(oc, obj.axis), 2);
 	return (calc_abc(a, b, c));
 }
@@ -43,7 +56,7 @@ t_vec	cone_normal(t_ray ray, t_hit hit, t_cone obj)
 	n = vec_sub(
 			vec_sub(hit.p, obj.pos),
 			vec_mul_by(vec_mul_by(obj.axis, m), k));
-	return vec_normalize(n);
+	return (vec_normalize(n));
 }
 
 void	check_cone(t_scene scene, t_ray ray, t_hit *hit)

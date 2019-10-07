@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   events.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ofrost-g <ofrost-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/07 16:11:40 by ofrost-g          #+#    #+#             */
+/*   Updated: 2019/10/07 16:13:05 by ofrost-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 
 void	event_redraw(t_app *app, const uint8_t *keys)
@@ -24,7 +36,7 @@ void	event_redraw(t_app *app, const uint8_t *keys)
 	}
 }
 
-void event_change_scene(t_app *app, const uint8_t *keys)
+void	event_change_scene(t_app *app, const uint8_t *keys)
 {
 	if (keys[SDL_SCANCODE_0])
 		app->scene_id = 0;
@@ -37,7 +49,8 @@ void event_change_scene(t_app *app, const uint8_t *keys)
 	if (keys[SDL_SCANCODE_4])
 		app->scene_id = 4;
 }
-void 	event_move(const uint8_t *keys, t_vec *pos)
+
+void	event_move(const uint8_t *keys, t_vec *pos)
 {
 	if (keys[SDL_SCANCODE_W])
 		pos->z -= POS_SPEED;
@@ -53,7 +66,7 @@ void 	event_move(const uint8_t *keys, t_vec *pos)
 		pos->y += POS_SPEED;
 }
 
-void 	event_rotate(const uint8_t *keys, t_vec *rot)
+void	event_rotate(const uint8_t *keys, t_vec *rot)
 {
 	if (keys[SDL_SCANCODE_LEFT])
 		rot->y -= ROT_SPEED;

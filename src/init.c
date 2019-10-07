@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ofrost-g <ofrost-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/07 16:04:42 by ofrost-g          #+#    #+#             */
+/*   Updated: 2019/10/07 16:04:56 by ofrost-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 
 void	init_app(t_app *app)
@@ -7,6 +19,7 @@ void	init_app(t_app *app)
 	app->asp_rat = (double)WIDTH / (double)HEIGHT;
 	app->redraw = TRUE;
 	app->scenes = (t_scene *)malloc(sizeof(t_scene) * 10);
+	app->scene_id = 0;
 }
 
 int		init_sdl(t_app *app)

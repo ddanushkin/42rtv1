@@ -6,7 +6,7 @@
 /*   By: lglover <lglover@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 17:36:42 by lglover           #+#    #+#             */
-/*   Updated: 2019/09/19 13:16:30 by ofrost-g         ###   ########.fr       */
+/*   Updated: 2019/10/07 15:59:29 by ofrost-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define ABS(N) ((N<0)?(-N):(N))
 # define SIGN(x) ((x < 0) ? -1 : (x > 0));
 # define SWAP(x, y, T) do { T SWAP = x; x = y; y = SWAP; } while (0)
-# define CLAMP(x, mn, mx) (((x) > (mx)) ? (mx) : (((x) < (mn)) ? (mn) : (x)))
+# define CLAMP(x, min, max)  (((x) > (max)) ? (max) : (((x) < (min)) ? (min) : (x)))
 # define ALLOC(t,n) (t *)malloc((n)*sizeof(t))
 
 typedef struct	s_list

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cylinder.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ofrost-g <ofrost-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/07 16:09:22 by ofrost-g          #+#    #+#             */
+/*   Updated: 2019/10/07 16:11:21 by ofrost-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 
 t_cylinder		cylinder_new(t_vec pos, t_vec rot, double rad, t_material mat)
@@ -12,7 +24,7 @@ t_cylinder		cylinder_new(t_vec pos, t_vec rot, double rad, t_material mat)
 	return (cylinder);
 }
 
-double			cylinder_intersection(t_ray ray, t_cylinder	obj)
+double			cylinder_intersection(t_ray ray, t_cylinder obj)
 {
 	t_vec	oc;
 	double	a;
@@ -20,12 +32,12 @@ double			cylinder_intersection(t_ray ray, t_cylinder	obj)
 	double	c;
 
 	oc = vec_sub(ray.o, obj.pos);
-	a   = vec_dot(ray.d , ray.d)
+	a = vec_dot(ray.d, ray.d)
 			- pow(vec_dot(ray.d, obj.axis), 2);
 	b = (vec_dot(ray.d, oc)
 			- vec_dot(ray.d, obj.axis) * vec_dot(oc, obj.axis)) * 2;
-	c   = vec_dot(oc, oc)
-			- pow(vec_dot(oc , obj.axis), 2) - obj.rad * obj.rad;
+	c = vec_dot(oc, oc)
+			- pow(vec_dot(oc, obj.axis), 2) - obj.rad * obj.rad;
 	return (calc_abc(a, b, c));
 }
 

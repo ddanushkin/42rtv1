@@ -40,8 +40,10 @@ int		render_loop(t_app *app)
 	return (0);
 }
 
-void	safe_quit(void)
+void	safe_quit(t_app *app)
 {
+	SDL_FreeSurface(app->sdl->surface);
+	SDL_DestroyWindow(app->sdl->window);
 	SDL_Quit();
 	exit(0);
 }
@@ -50,6 +52,7 @@ int		main(int argc, char *argv[])
 {
 	t_app	*app;
 
+	/*TODO: Check leaks! On Hackintosh have 1 GeforceGLDriverWeb leak.*/
 	app = (t_app *)malloc(sizeof(t_app));
 	init_sdl(app);
 	init_app(app);
@@ -58,6 +61,6 @@ int		main(int argc, char *argv[])
 	else
 		read_config(app, argv[1]);
 	render_loop(app);
-	safe_quit(void);
+	safe_quit(app);
 	return (0);
 }

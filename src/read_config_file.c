@@ -51,12 +51,12 @@ void	parse_config(t_app *app, char *path)
 	if (fd < 0)
 	{
 		ft_putendl("Bad scene file.");
-		safe_quit();
+		safe_quit(app);
 	}
 	while (ft_gnl(fd, &line) > 0)
 	{
 		data_obj = ft_strsplit(line, ' ');
-		free(line);
+		ft_strdel(&line);
 		parse_data(app, data_obj);
 		ft_splitdel(&data_obj);
 	}
@@ -109,17 +109,17 @@ void	read_config(t_app *app, char *path)
 	if (fd < 0)
 	{
 		ft_putendl("Bad scene file.");
-		safe_quit();
+		safe_quit(app);
 	}
 	while (ft_gnl(fd, &line) > 0)
 	{
 		draft_obj = ft_strsplit(line, ' ');
-		free(line);
+		ft_strdel(&line);
 		if (!check_draft(draft_obj, app))
 		{
 			ft_splitdel(&draft_obj);
 			close(fd);
-			safe_quit();
+			safe_quit(app);
 		}
 		ft_splitdel(&draft_obj);
 	}

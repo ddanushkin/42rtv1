@@ -157,7 +157,7 @@ typedef struct	s_thread_data
 	int			ey;
 }				t_thread_data;
 
-void			safe_quit(void);
+void			safe_quit(t_app *app);
 
 void			set_pixel(SDL_Surface *surface, int x, int y, t_color c);
 

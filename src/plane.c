@@ -6,7 +6,7 @@
 /*   By: ofrost-g <ofrost-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 16:19:55 by ofrost-g          #+#    #+#             */
-/*   Updated: 2019/10/09 13:14:08 by lglover          ###   ########.fr       */
+/*   Updated: 2019/10/09 16:47:07 by lglover          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ double	plane_intersection(t_ray ray, t_plane plane)
 	double	denom;
 	double	t;
 
-	t = INFINITY;
+	t = MAX_DIST;
 	denom = vec_dot(ray.d, plane.axis);
 	if (denom > 0.0000001)
 		t = vec_dot(plane.axis, vec_sub(plane.pos, ray.o)) / denom;

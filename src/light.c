@@ -6,7 +6,7 @@
 /*   By: ofrost-g <ofrost-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 16:13:39 by ofrost-g          #+#    #+#             */
-/*   Updated: 2019/10/09 13:37:35 by lglover          ###   ########.fr       */
+/*   Updated: 2019/10/09 16:41:20 by lglover          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	calculate_light(t_scene scene, t_light light, t_hit *hit, t_ray ray)
 			pow((light.position.z - hit->p.z), 2.0));
 	shadow_ray.o = vec_add(hit->p, vec_mul_by(hit->n, 0.1));
 	shadow_ray.d = light_dir;
-	shadow_hit.d = INFINITY;
+	shadow_hit.d = MAX_DIST;
 	shadow_hit.collided = FALSE;
 	check_spheres(scene, shadow_ray, &shadow_hit);
 	check_cylinder(scene, shadow_ray, &shadow_hit);
@@ -62,7 +62,7 @@ void	process_lights(t_scene scene, t_ray ray, t_hit *hit)
 	t_color		tmp;
 
 	i = 0;
-	hit->diffuse = 0.1;
+	hit->diffuse = 0.0;
 	hit->specular = 0.0;
 	while (i < scene.counts[LIGHT_OBJ])
 	{

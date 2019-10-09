@@ -6,7 +6,7 @@
 /*   By: ofrost-g <ofrost-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 16:19:40 by ofrost-g          #+#    #+#             */
-/*   Updated: 2019/10/07 16:19:40 by ofrost-g         ###   ########.fr       */
+/*   Updated: 2019/10/09 16:58:54 by lglover          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	hit_objects(t_scene scene, t_ray ray, t_hit *hit)
 {
-	hit->d = INFINITY;
+	hit->d = MAX_DIST;
 	hit->collided = FALSE;
 	check_planes(scene, ray, hit);
 	check_spheres(scene, ray, hit);

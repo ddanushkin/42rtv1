@@ -41,13 +41,3 @@ t_vec	vec_mul_by(t_vec v, double k)
 	new_v.z = v.z * k;
 	return (new_v);
 }
-
-t_vec	vec_div_by(t_vec v, double k)
-{
-	t_vec	new_v;
-
-	new_v.x = v.x / k;
-	new_v.y = v.y / k;
-	new_v.z = v.z / k;
-	return (new_v);
-}

@@ -6,7 +6,7 @@
 /*   By: ofrost-g <ofrost-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 16:19:23 by ofrost-g          #+#    #+#             */
-/*   Updated: 2019/10/07 21:20:18 by ofrost-g         ###   ########.fr       */
+/*   Updated: 2019/10/09 16:34:11 by lglover          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	set_axis(t_vec *axis, t_vec rot)
 	rot.z *= M_PI / 180.0;
 	tmp_1 = vec_new(0.0, -1.0, 0.0);
 	tmp_2 = tmp_1;
+	tmp_1.x = tmp_2.x * cos(rot.z) - tmp_2.y * sin(rot.z);
+	tmp_1.y = tmp_2.x * sin(rot.z) + tmp_2.y * cos(rot.z);
+	tmp_2 = tmp_1;
 	tmp_1.y = tmp_2.y * cos(rot.x) - tmp_2.z * sin(rot.x);
 	tmp_1.z = tmp_2.y * sin(rot.x) + tmp_2.z * cos(rot.x);
 	tmp_2 = tmp_1;
 	tmp_1.x = tmp_2.x * cos(rot.y) + tmp_2.z * sin(rot.y);
 	tmp_1.z = -tmp_2.x * sin(rot.y) + tmp_2.z * cos(rot.y);
-	tmp_2 = tmp_1;
-	tmp_1.x = tmp_2.x * cos(rot.z) - tmp_2.y * sin(rot.z);
-	tmp_1.y = tmp_2.x * sin(rot.z) + tmp_2.y * cos(rot.z);
 	*axis = vec_normalize(tmp_1);
 }
 
@@ -46,11 +46,11 @@ void	set_view(t_vec *axis, t_vec rot)
 	tmp_1.x = tmp_2.x * cos(rot.z) - tmp_2.y * sin(rot.z);
 	tmp_1.y = tmp_2.x * sin(rot.z) + tmp_2.y * cos(rot.z);
 	tmp_2 = tmp_1;
-	tmp_1.x = tmp_2.x * cos(rot.y) + tmp_2.z * sin(rot.y);
-	tmp_1.z = -tmp_2.x * sin(rot.y) + tmp_2.z * cos(rot.y);
-	tmp_2 = tmp_1;
 	tmp_1.y = tmp_2.y * cos(rot.x) - tmp_2.z * sin(rot.x);
 	tmp_1.z = tmp_2.y * sin(rot.x) + tmp_2.z * cos(rot.x);
+	tmp_2 = tmp_1;
+	tmp_1.x = tmp_2.x * cos(rot.y) + tmp_2.z * sin(rot.y);
+	tmp_1.z = -tmp_2.x * sin(rot.y) + tmp_2.z * cos(rot.y);
 	*axis = vec_normalize(tmp_1);
 }
 
@@ -63,9 +63,9 @@ double	calc_abc(double a, double b, double c)
 
 	d = b * b - 4 * (a * c);
 	if (fabs(d) < 0.001)
-		return (INFINITY);
+		return (MAX_DIST);
 	if (d < 0.0)
-		return (INFINITY);
+		return (MAX_DIST);
 	d = sqrt(d);
 	ax2 = (2 * a);
 	t1 = (-b - d) / ax2;
@@ -73,7 +73,7 @@ double	calc_abc(double a, double b, double c)
 	if (t1 < 0.0)
 		t1 = t2;
 	if (t1 < 0.0)
-		return (INFINITY);
+		return (MAX_DIST);
 	return (t1);
 }
 

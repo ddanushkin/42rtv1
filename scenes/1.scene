@@ -4,6 +4,6 @@ sphere 3 0 0 1
 sphere 3 0 0 2
 sphere -5 -2 -1 2
 sphere 0 0 -11 10
-light -1 0 7 50
-light 1 0 7 50
-light 0 5 10 50
+light -1 0 7 100
+light 1 0 7 100
+light 0 5 10 100

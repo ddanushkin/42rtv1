@@ -6,7 +6,7 @@
 /*   By: lglover <lglover@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 10:28:22 by lglover           #+#    #+#             */
-/*   Updated: 2019/10/09 13:09:13 by lglover          ###   ########.fr       */
+/*   Updated: 2019/10/09 17:01:46 by lglover          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,11 @@
 # define WIDTH 512
 # define HEIGHT 512
 
-# define POS_SPEED 1.0
+# define POS_SPEED 10.0
 # define ROT_SPEED 2.0
 
 # define BLACK color_new(0, 0, 0)
 # define WHITE color_new(255, 255, 255)
-# define GREY color_new(128, 128, 128)
-# define RED color_new(255, 0, 0)
-# define GREEN color_new(0, 255, 0)
-# define BLUE color_new(0, 0, 255)
-# define CYAN color_new(0, 255, 255)
-# define PINK color_new(235, 52, 143)
-# define ORANGE color_new(235, 140, 52)
-# define YELLOW color_new(235, 213, 52)
-# define PURPLE color_new(189, 52, 235)
 
 # define SPHERE_OBJ 0
 # define CONE_OBJ 1
@@ -49,6 +40,8 @@
 # define STATUS_OK "Exit. No error."
 # define STATUS_BAD_PATH "Exit. Bad config file path!"
 # define STATUS_BAD_CONFIG "Exit. Bad scene config!"
+
+# define MAX_DIST 10000.0
 
 typedef struct	s_color
 {

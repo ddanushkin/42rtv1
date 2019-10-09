@@ -29,7 +29,9 @@ void	event_redraw(t_app *app, const uint8_t *keys)
 	keys[SDL_SCANCODE_2] ||
 	keys[SDL_SCANCODE_3] ||
 	keys[SDL_SCANCODE_4] ||
-	keys[SDL_SCANCODE_0])
+	keys[SDL_SCANCODE_0] ||
+	keys[SDL_SCANCODE_KP_4] ||
+	keys[SDL_SCANCODE_KP_6])
 	{
 		trace_rays(app);
 		SDL_UpdateWindowSurface(app->sdl->window);
@@ -62,4 +64,8 @@ void	event_rotate(const uint8_t *keys, t_vec *rot)
 		rot->x += ROT_SPEED;
 	if (keys[SDL_SCANCODE_DOWN])
 		rot->x -= ROT_SPEED;
+	if (keys[SDL_SCANCODE_KP_4])
+		rot->z += ROT_SPEED;
+	if (keys[SDL_SCANCODE_KP_6])
+		rot->z -= ROT_SPEED;
 }

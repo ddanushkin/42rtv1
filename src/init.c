@@ -15,7 +15,7 @@
 void	init_app(t_app *app)
 {
 	app->keys = SDL_GetKeyboardState(NULL);
-	app->fov = 90.0;
+	app->fov = 60.0;
 	app->asp_rat = (double)WIDTH / (double)HEIGHT;
 	app->scenes = (t_scene *)malloc(sizeof(t_scene) * 10);
 	app->pos = vec_new(0, 0, 5);

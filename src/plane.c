@@ -6,7 +6,7 @@
 /*   By: ofrost-g <ofrost-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 16:19:55 by ofrost-g          #+#    #+#             */
-/*   Updated: 2019/10/07 16:19:55 by ofrost-g         ###   ########.fr       */
+/*   Updated: 2019/10/09 13:14:08 by lglover          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_plane	plane_new(t_vec pos, t_vec rot)
 
 	plane.pos = pos;
 	plane.rot = rot;
-	plane.mat = mat_new(0.8, 0.8, 100, PALETTE_C3);
+	plane.mat = mat_new(1, 1, 50, random_color());
 	set_axis(&plane.axis, plane.rot);
 	return (plane);
 }

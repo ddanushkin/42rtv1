@@ -6,7 +6,7 @@
 /*   By: ofrost-g <ofrost-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 16:04:42 by ofrost-g          #+#    #+#             */
-/*   Updated: 2019/10/07 16:04:56 by ofrost-g         ###   ########.fr       */
+/*   Updated: 2019/10/09 12:08:51 by lglover          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ void	init_app(t_app *app)
 	app->fov = 90.0;
 	app->asp_rat = (double)WIDTH / (double)HEIGHT;
 	app->scenes = (t_scene *)malloc(sizeof(t_scene) * 10);
+	app->pos = vec_new(0, 0, 5);
+	app->rot = vec_new(0, 0, 0);
+	srand(time(0));
 	ft_memset(app->scenes->counts, 0, sizeof(int[5]));
 }
 

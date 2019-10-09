@@ -6,7 +6,7 @@
 /*   By: ofrost-g <ofrost-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 16:09:22 by ofrost-g          #+#    #+#             */
-/*   Updated: 2019/10/07 16:11:21 by ofrost-g         ###   ########.fr       */
+/*   Updated: 2019/10/09 12:55:42 by lglover          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_cylinder		cylinder_new(t_vec pos, t_vec rot, double rad)
 	cylinder.pos = pos;
 	cylinder.rot = rot;
 	cylinder.rad = rad;
-	cylinder.mat = mat_new(0.8, 0.8, 50, PALETTE_C2);
+	cylinder.mat = mat_new(1, 1, 50, random_color());
 	set_axis(&cylinder.axis, cylinder.rot);
 	return (cylinder);
 }

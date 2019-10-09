@@ -6,7 +6,7 @@
 /*   By: lglover <lglover@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 10:28:22 by lglover           #+#    #+#             */
-/*   Updated: 2019/10/09 10:28:29 by lglover          ###   ########.fr       */
+/*   Updated: 2019/10/09 13:09:13 by lglover          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,10 @@
 # define GREEN color_new(0, 255, 0)
 # define BLUE color_new(0, 0, 255)
 # define CYAN color_new(0, 255, 255)
-# define PINK color_new(255, 0, 127)
-# define BROWN color_new(153, 76, 0)
-# define ORANGE color_new(255, 128, 0)
-
-# define PALETTE_C1 color_new(198, 65, 145)
-# define PALETTE_C2 color_new(0, 191, 178)
-# define PALETTE_C3 color_new(240, 243, 189)
-# define PALETTE_C4 color_new(2, 127, 144)
-# define PALETTE_C5 color_new(26, 94, 99)
+# define PINK color_new(235, 52, 143)
+# define ORANGE color_new(235, 140, 52)
+# define YELLOW color_new(235, 213, 52)
+# define PURPLE color_new(189, 52, 235)
 
 # define SPHERE_OBJ 0
 # define CONE_OBJ 1
@@ -182,6 +177,8 @@ t_vec			vec_mul_by(t_vec v, double k);
 t_vec			vec_invert(t_vec v);
 t_vec			vec_point_at(t_ray ray, double length);
 
+t_color			random_color();
+t_color			color_hsv(int hue);
 t_color			color_new(int r, int g, int b);
 t_color			color_sum(t_color c1, t_color c2);
 t_color			color_mul_by(t_color c, double k);

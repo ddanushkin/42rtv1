@@ -6,7 +6,7 @@
 /*   By: ofrost-g <ofrost-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 16:19:43 by ofrost-g          #+#    #+#             */
-/*   Updated: 2019/10/07 16:19:43 by ofrost-g         ###   ########.fr       */
+/*   Updated: 2019/10/09 13:32:59 by lglover          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_sphere		sphere_new(t_vec pos, double rad)
 
 	sphere.pos = pos;
 	sphere.rad = rad;
-	sphere.mat = mat_new(0.8, 0.8, 50, PALETTE_C3);
+	sphere.mat = mat_new(1, 1, 50, random_color());
 	return (sphere);
 }
 

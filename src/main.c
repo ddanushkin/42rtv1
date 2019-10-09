@@ -40,8 +40,9 @@ int		render_loop(t_app *app)
 	return (0);
 }
 
-void	safe_quit(t_app *app)
+void	safe_quit(t_app *app, char *status)
 {
+	ft_putendl(status);
 	SDL_FreeSurface(app->sdl->surface);
 	SDL_DestroyWindow(app->sdl->window);
 	SDL_Quit();
@@ -60,6 +61,6 @@ int		main(int argc, char *argv[])
 	else
 		read_config(app, argv[1]);
 	render_loop(app);
-	safe_quit(app);
+	safe_quit(app, STATUS_OK);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ofrost-g <ofrost-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 22:38:14 by ofrost-g          #+#    #+#             */
-/*   Updated: 2019/10/07 22:38:14 by ofrost-g         ###   ########.fr       */
+/*   Updated: 2019/10/09 15:58:13 by lglover          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ void	parse_config(t_app *app, char *path)
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-	{
-		ft_putendl("Bad scene file.");
-		safe_quit(app);
-	}
+		safe_quit(app, STATUS_BAD_PATH);
 	while (ft_gnl(fd, &line) > 0)
 	{
 		data_obj = ft_strsplit(line, ' ');
@@ -107,10 +104,7 @@ void	read_config(t_app *app, char *path)
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-	{
-		ft_putendl("Bad scene file.");
-		safe_quit(app);
-	}
+		safe_quit(app, STATUS_BAD_PATH);
 	while (ft_gnl(fd, &line) > 0)
 	{
 		draft_obj = ft_strsplit(line, ' ');
@@ -119,7 +113,7 @@ void	read_config(t_app *app, char *path)
 		{
 			ft_splitdel(&draft_obj);
 			close(fd);
-			safe_quit(app);
+			safe_quit(app, STATUS_BAD_CONFIG);
 		}
 		ft_splitdel(&draft_obj);
 	}

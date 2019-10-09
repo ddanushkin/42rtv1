@@ -46,6 +46,10 @@
 # define TRUE 1
 # define FALSE 0
 
+# define STATUS_OK "Exit. No error."
+# define STATUS_BAD_PATH "Exit. Bad config file path!"
+# define STATUS_BAD_CONFIG "Exit. Bad scene config!"
+
 typedef struct	s_color
 {
 	int		r;
@@ -163,7 +167,7 @@ typedef struct	s_thread_data
 	int			ey;
 }				t_thread_data;
 
-void			safe_quit(t_app *app);
+void			safe_quit(t_app *app, char *status);
 
 void			set_pixel(SDL_Surface *surface, int x, int y, t_color c);
 

@@ -20,24 +20,26 @@ INCLUDES = 	-I ./libft/include \
 
 SRC_PATH =	src
 SRC_LIST =	app.c \
-			cone.c \
+            color.c \
+            cone.c \
+            cylinder.c \
+            events.c \
             init.c \
+            light.c \
+            main.c \
             material.c \
+            pixel.c \
+            plane.c \
+            ray.c \
+            read_config_file.c \
+            scene_add.c \
+            scene_set.c \
+            sphere.c \
             tracer.c \
+            utils.c \
+            vector.c \
             vector_math.c \
-           	cylinder.c \
-           	light.c \
-           	pixel.c \
-           	ray.c \
-           	scene_add.c \
-           	utils.c \
-           	vector_utils.c \
-           	color.c \
-           	events.c \
-           	main.c \
-           	plane.c \
-           	sphere.c \
-           	vector.c
+            vector_utils.c \
 
 SRC = $(addprefix $(SRC_PATH)/, $(SRC_LIST))
 

@@ -17,7 +17,6 @@ void	init_app(t_app *app)
 	app->keys = SDL_GetKeyboardState(NULL);
 	app->fov = 90.0;
 	app->asp_rat = (double)WIDTH / (double)HEIGHT;
-	app->redraw = TRUE;
 	app->scenes = (t_scene *)malloc(sizeof(t_scene) * 10);
 	ft_memset(app->scenes->counts, 0, sizeof(int[5]));
 }

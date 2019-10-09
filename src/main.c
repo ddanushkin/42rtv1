@@ -52,7 +52,6 @@ int		main(int argc, char *argv[])
 {
 	t_app	*app;
 
-	/*TODO: Check leaks! On Hackintosh have 1 GeforceGLDriverWeb leak.*/
 	app = (t_app *)malloc(sizeof(t_app));
 	init_sdl(app);
 	init_app(app);

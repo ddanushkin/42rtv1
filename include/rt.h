@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt.h                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lglover <lglover@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/09 10:28:22 by lglover           #+#    #+#             */
+/*   Updated: 2019/10/09 10:28:29 by lglover          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef RT_H
 # define RT_H
 
@@ -144,7 +156,6 @@ typedef struct	s_app
 	double		asp_rat;
 	t_vec		pos;
 	t_vec		rot;
-	int			redraw;
 }				t_app;
 
 typedef struct	s_thread_data
@@ -179,7 +190,7 @@ void			color_clamp(t_color *c);
 void			init_app(t_app *app);
 int				init_sdl(t_app *app);
 
-void	app_set_camera(t_app *app, t_vec pos, t_vec rot);
+void			app_set_camera(t_app *app, t_vec pos, t_vec rot);
 
 t_vec			ray_direction(t_app *app, int x, int y);
 void			read_config(t_app *app, char *path);
@@ -192,7 +203,6 @@ void			trace_rays(t_app *app);
 void			event_redraw(t_app *app, const uint8_t *keys);
 void			event_move(const uint8_t *keys, t_vec *pos);
 void			event_rotate(const uint8_t *keys, t_vec *rot);
-void			event_change_scene(t_app *app, const uint8_t *keys);
 
 double			sphere_intersection(t_ray ray, t_sphere sphere);
 t_vec			sphere_normal(t_vec center, t_vec p);
